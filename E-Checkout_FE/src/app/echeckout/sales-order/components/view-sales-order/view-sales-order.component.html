@@ -1,0 +1,433 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+        <div class="card w-100">
+            <div class="card-header">
+                <div class="row row-30 m-auto">
+                    <div class="col-md-7">
+                        <h3>View Sales Orders (Order ID: {{orderData?.id}})</h3>
+                        <p class="text-primary m-0">
+                           <span class="text-secondary">View Sales Order</span>
+                        </p>
+                    </div>
+                    <div class="col-md-5 text-right">
+                        <button class="btn wms_btn_primary btn mx-2" *ngIf="!!orderData && !!orderData.order_id && !!orderData.status && orderData.status.id === 2" (click)="printInvoice(orderData)">Print</button>
+                        <button class="btn wms_btn_primary mx-2" *ngIf="!!orderData && !!orderData.order_id && !!orderData.status && orderData.status.id === 2" (click)="downloadInvoice(orderData)">Download</button>
+                        <button class="btn wms_btn_secondary mx-2" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}">Back</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4" *ngIf="!!orderData">
+                <p class="table-tittle-order">Sales Agent Details</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                            <td>
+                                <p><b>Agent ID: </b></p>
+                                <p>{{orderData?.agent}}</p>
+                            </td>
+                          <td>
+                             <p><b>Agent Name: </b></p>
+                             <p>{{orderData?.agent_name}}</p>
+                          </td>
+                          <td>
+                              <p><b>Created At:</b></p>
+                              <p>{{orderData?.created_timestamp | date: 'medium'}}</p>
+                            </td>
+                       </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Customer Details</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Customer Name: </b></p>
+                             <p>{{orderData?.customer_name}}</p>
+                          </td>
+                          <td>
+                             <p><b>Mobile Number: </b></p>
+                             <p>{{orderData?.mobile}}</p>
+                          </td>
+                          <td>
+                             <p><b>Email ID:</b></p>
+                             <p>{{orderData?.email}}</p>
+                          </td>
+                       </tr>
+                       <tr>
+                            <td>
+                               <p><b>Browser: </b></p>
+                               <p>{{orderData?.browser}}</p>
+                            </td>
+                            <td>
+                               <p><b>Longitude / Latitude: </b></p>
+                               <p>{{orderData?.longitude}} / {{orderData?.latitude}}</p>
+                            </td>
+                            <td>
+                               <p><b>IP Address:</b></p>
+                               <p>{{orderData?.ip_address}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Product Details</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Product ID / Product Name: </b></p>
+                             <p>{{orderData?.product_id}} / {{orderData?.product_name}}</p>
+                          </td>
+                          <td>
+                             <p><b>Quantity:</b></p>
+                             <p>{{orderData?.email}}</p>
+                          </td>
+                          <td>
+                             <p><b>Total Price:</b></p>
+                             <p>{{orderData?.total_price}}</p>
+                          </td>
+                       </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Payment Details</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Payment Mode: </b></p>
+                             <p>{{orderData?.is_card_payment === true ? 'Card' : 'Bank'}}</p>
+                          </td>
+                       </tr>
+                       <tr *ngIf="orderData.is_card_payment === true">
+                            <td>
+                               <p><b>Card Number: </b></p>
+                               <p>{{orderData?.card_number}}</p>
+                            </td>
+                            <td>
+                               <p><b>Card Name:</b></p>
+                               <p>{{orderData?.card_name}}</p>
+                            </td>
+                            <td>
+                               <p><b>CVV:</b></p>
+                               <p>{{orderData?.cvv}}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="orderData.is_card_payment === true">
+                            <td>
+                               <p><b>Card Validity: </b></p>
+                               <p>{{orderData?.expiry_date}}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="orderData.is_card_payment === false">
+                            <td>
+                                <p><b>Bank Name : </b></p>
+                                <p>{{orderData?.bank_name}}</p>
+                            </td>
+                            <td>
+                               <p><b>Account Numnber : </b></p>
+                               <p>{{orderData?.account_number}}</p>
+                            </td>
+                            <td>
+                               <p><b>Routing Number:</b></p>
+                               <p>{{orderData?.card_routing_number}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Billing Address</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Address Line 1</b></p>
+                             <p>{{orderData?.address1}}</p>
+                          </td>
+                          <td>
+                             <p><b>Address Line 2</b></p>
+                             <p>{{orderData?.address2}}</p>
+                          </td>
+                          <td>
+                                <p><b>City</b></p>
+                                <p>{{orderData?.city}}</p>
+                          </td>
+                       </tr>
+                       <tr>
+                            <td>
+                               <p><b>State</b></p>
+                               <p>{{orderData?.state}}</p>
+                            </td>
+                            <td>
+                               <p><b>Country</b></p>
+                               <p>{{orderData?.country}}</p>
+                            </td>
+                            <td>
+                                <p><b>Pin Code</b></p>
+                                <p>{{orderData?.zip_code}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Shipping Address</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Address Line 1</b></p>
+                             <p>{{orderData?.s_address1}}</p>
+                          </td>
+                          <td>
+                             <p><b>Address Line 2</b></p>
+                             <p>{{orderData?.s_address2}}</p>
+                          </td>
+                          <td>
+                                <p><b>City</b></p>
+                                <p>{{orderData?.s_city}}</p>
+                          </td>
+                       </tr>
+                       <tr>
+                            <td>
+                               <p><b>State</b></p>
+                               <p>{{orderData?.s_state}}</p>
+                            </td>
+                            <td>
+                               <p><b>Country</b></p>
+                               <p>{{orderData?.s_country}}</p>
+                            </td>
+                            <td>
+                                <p><b>Pin Code</b></p>
+                                <p>{{orderData?.s_zip_code}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <p class="table-tittle-order">Other Important Details</p> 
+                <table class="table">
+                    <tbody>
+                       <tr>
+                          <td>
+                             <p><b>Work Order Status</b></p>
+                             <p>{{orderData?.work_order_status}}</p>
+                          </td>
+                          <td>
+                          </td>
+                          <td>
+                          </td>
+                       </tr>
+                    </tbody>
+                </table>
+                <!-- <p class="table-tittle-order">Payment Details</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Attributes</th>
+                            <th scope="col">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!!orderData.payment_detail.id">
+                            <th scope="row">Payment ID:</th>
+                            <td>{{orderData?.payment_detail?.id}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.company_name">
+                            <th scope="row">Company Name:</th>
+                            <td>{{orderData?.payment_detail?.company_name}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.account_number">
+                            <th scope="row">Account Number:</th>
+                            <td>{{orderData?.payment_detail?.account_number}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.routing_number">
+                            <th scope="row">Routing Number:</th>
+                            <td>{{orderData?.payment_detail.routing_number}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.card_number">
+                            <th scope="row">Card Number:</th>
+                            <td>{{orderData?.payment_detail.card_number}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.bank_name">
+                            <th scope="row">Bank Name:</th>
+                            <td>{{orderData?.payment_detail?.bank_name}}</td>
+                        </tr>
+     
+                        <tr *ngIf="!!orderData.payment_detail.expiry_date">
+                            <th scope="row">Expiry Date:</th>
+                            <td>{{orderData?.payment_detail?.expiry_date}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.amount">
+                            <th scope="row">Amount:</th>
+                            <td>{{orderData?.payment_detail?.amount}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail.cvv">
+                            <th scope="row">CVV:</th>
+                            <td>{{orderData?.payment_detail?.cvv}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.is_card_payment">
+                            <th scope="row">Payment Method:</th>
+                            <td>{{orderData?.is_card_payment === true ? 'Card' : 'Bank'}}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <!-- <p class="table-tittle-order">Billing Address</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Attributes</th>
+                            <th scope="col">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!!orderData.first_name && orderData.first_name !== ''">
+                            <th scope="row">First Name:</th>
+                            <td>{{orderData?.first_name}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.last_name && orderData.last_name !== ''">
+                            <th scope="row">Last Name:</th>
+                            <td>{{orderData?.last_name}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.mobile && orderData.mobile !== ''">
+                            <th scope="row">Mobile Number:</th>
+                            <td>{{orderData?.mobile}}</td>
+                        </tr>
+     
+                        <tr *ngIf="!!orderData.country_code && orderData.country_code !== ''">
+                            <th scope="row">Country Code:</th>
+                            <td>{{orderData?.country_code}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.email && orderData.email !== ''">
+                            <th scope="row">Email ID:</th>
+                            <td>{{orderData?.email}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.billing_address1 && orderData.billing_address1 !== ''">
+                            <th scope="row">Address Line 1:</th>
+                            <td>{{orderData?.billing_address1}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.billing_address2 && orderData.billing_address2 !== ''">
+                            <th scope="row">Address Line 2:</th>
+                            <td>{{orderData?.billing_address2}}</td>
+                        </tr>
+     
+                        <tr *ngIf="!!orderData.country && orderData.country !== ''">
+                            <th scope="row">Country:</th>
+                            <td>{{orderData?.country}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.state && orderData.state !== ''">
+                            <th scope="row">State:</th>
+                            <td>{{orderData?.state}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.city && orderData.city !== ''">
+                            <th scope="row">Billing Address City:</th>
+                            <td>{{orderData?.city}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.zip_code && orderData.zip_code !== ''">
+                            <th scope="row">Zip Code:</th>
+                            <td>{{orderData?.zip_code}}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <!-- <p class="table-tittle-order">Shiping Details</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Attributes</th>
+                            <th scope="col">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_mobile">
+                            <th scope="row">Mobile:</th>
+                            <td>{{orderData?.payment_detail?.s_mobile}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_email">
+                            <th scope="row">Email ID:</th>
+                            <td>{{orderData?.payment_detail?.s_email}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_address1">
+                            <th scope="row">Address Line 1:</th>
+                            <td>{{orderData?.payment_detail?.s_address1}}</td>
+                        </tr>
+     
+                        <tr *ngIf="!!orderData?.payment_detail?.s_address2">
+                            <th scope="row">Address Line 2:</th>
+                            <td>{{orderData?.payment_detail?.s_address2}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_country">
+                            <th scope="row">Country:</th>
+                            <td>{{orderData?.payment_detail?.s_country}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_state">
+                            <th scope="row">State:</th>
+                            <td>{{orderData?.payment_detail?.s_state}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_city">
+                            <th scope="row">City:</th>
+                            <td>{{orderData?.payment_detail?.s_city}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData?.payment_detail?.s_zip_code">
+                            <th scope="row">Zip:</th>
+                            <td>{{orderData?.payment_detail?.s_zip_code}}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <!-- <p class="table-tittle-order">Product Details</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Attributes</th>
+                            <th scope="col">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!!orderData.payment_detail?.product_id">
+                            <th scope="row">Product ID:</th>
+                            <td>{{orderData?.payment_detail?.product_id}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail?.product_name">
+                            <th scope="row">Product Name:</th>
+                            <td>{{orderData?.payment_detail?.product_name}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail?.quantity">
+                            <th scope="row">Product Quantity:</th>
+                            <td>{{orderData?.payment_detail?.quantity}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail?.unit_price">
+                            <th scope="row">Unit Price:</th>
+                            <td>{{orderData?.payment_detail?.unit_price}}</td>
+                        </tr>
+                        <tr *ngIf="!!orderData.payment_detail?.total_price">
+                            <th scope="row">Total Price:</th>
+                            <td>{{orderData?.payment_detail?.total_price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="table-tittle-order">Reasons And Description</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Attributes</th>
+                            <th scope="col">Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <th scope="row">QA reason:</th>
+                            <p>{{orderData.qa_reason === null ? 'NA' : orderData.qa_reason}}</p>
+                        </tr>
+                        <tr >
+                            <th scope="row">Agent Reason:</th>
+                            <p>{{orderData.agent_reason === null ? 'NA' : orderData.agent_reason}}</p>
+                        </tr>
+                        <tr >
+                            <th scope="row">Description:</th>
+                            <p>{{orderData.payment_detail.description === null ? 'NA' : orderData.payment_detail.description}}</p>
+                        </tr>
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+    </div>
+</div>

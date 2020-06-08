@@ -1,0 +1,9 @@
+@import 'src/assets/scss/variables';
+
+@mixin sprite {
+    background: url("assets/images/sprite1260.png") no-repeat;
+  }
+  .btn-primary:hover {
+    color: #fff;
+    background-color: $primary-green !important;
+}

@@ -1,0 +1,60 @@
+<!-- Testing Code -->
+<section class="tripdrive_login">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+            <div class="row">
+               <div class="col-lg-10 col-md-8 mx-auto">
+                 <div class="card card-signin tripdrive_rounded shadow shadow-sm">
+                   <div class="card-body p-0">
+                      <div class="row">
+                         <div class="col-sm-12 col-md-6 col-lg-6 tripdrive_login_banner">
+                            <div class="d-flex flex-column justify-content-center h-100">
+                              <img class="tripdrive_login_logo img-fluid w-50 m-auto" src="assets/images/logo/logo.png" alt="Login">
+                            </div>
+                         </div>
+                         <div class="col-sm-12 col-md-6 col-lg-6 tripdrive_login_form p-5">
+                            <h6 class="card-title text-center mb-5">Sign In to your account</h6>
+                            <form class="form-signin" [formGroup]="loginForm" #login="ngForm" (ngSubmit)="loginUser(login)">
+                               <div class="form-label-group input-group py-2">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                       <img class="img-fluid" src="assets/images/login/email.svg" alt="Login">
+                                    </span>
+                                  </div>
+                                  <input type="text" class="form-control" placeholder="Email" formControlName="user_input" name="user_input" id="user_input" required >
+                               </div>
+                               <div class="d-flex justify-content-end mb-1 error-container">
+                                  <span class="text-danger error-message" *ngIf="isLoginFormValidate !== undefined && isLoginFormValidate !==null && isLoginFormValidate === true && loginForm.get('user_input').hasError('required')">Please fill out this field.</span>
+                                  <span class="text-danger error-message" *ngIf="isLoginFormValidate !== undefined && isLoginFormValidate !==null && isLoginFormValidate === true && !!loginForm.get('user_input').errors && loginForm.get('user_input').errors.email">Please Enter a Valid Email ID.</span>
+                               </div>
+                               <div class="form-label-group input-group py-2">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                       <img class="img-fluid" src="assets/images/login/password.svg" alt="Login">
+                                    </span>
+                                  </div>
+                                  <input type="password" class="form-control"  placeholder="Password" formControlName="password" name="password" id="password" required >
+                               </div>
+                               <div class="d-flex justify-content-end mb-1 error-container">
+                                  <span class="text-danger error-message" *ngIf="isLoginFormValidate !== undefined && isLoginFormValidate !==null && isLoginFormValidate === true && loginForm.get('password').hasError('required')">Please fill out this field.</span>
+                               </div>
+                               <div class="custom-control custom-checkbox my-3 text-right">
+                                  <input type="checkbox" class="custom-control-input" id="customCheck1" name="isRemember" formControlName="isRemember" value="true">
+                                  <label class="custom-control-label" for="customCheck1">Remember me</label>
+                                  <!-- <a class="float-right" [routerLink]="['/authentication/forgot-password']">Forgot Password?</a> -->
+                               </div>
+                               <div class="text-center">
+                                 <button class="btn tripdrive_btn_primary my-4 w-50 mx-auto" type="submit" [disabled]="!!loginButtonDisable && loginButtonDisable ===true">Submit</button>
+                               </div>
+                               </form>
+                         </div>
+                      </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+         </div>
+      </div>
+    </div>
+</section>

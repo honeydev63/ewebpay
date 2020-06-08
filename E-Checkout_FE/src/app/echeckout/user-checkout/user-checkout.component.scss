@@ -1,0 +1,187 @@
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma';
+
+.insowa_usercheckout_card {
+    box-shadow: $primary-box-shadow;
+    .card-header {
+        background: $primary-blue;
+        color: $white;
+    }
+    .eweb_cardpayment {
+        border: 1px solid $light-grey;
+        .card-header {
+            background: $light-grey;
+            .card-body {
+                padding: 1rem;
+            }
+        }
+    }
+}
+
+.d-inline-block.align-top {
+    margin-left:auto; 
+    margin-right:auto; 
+    border-bottom-left-radius:15px; 
+    border-bottom-right-radius:15px;
+    width: 209px;
+    height: 89px;
+    background-color: #ffffff;
+}
+
+.tripdrive_listing_header.pt-5{
+    background: #ffffff;
+}
+.navbar.navbar-light.navbar-expand-lg.p-1.tripdrive_navbar{
+    background:#3fa4e3;
+    height: 323px;
+    padding-top: 0!important;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.tripdrive_listing_header.pt-5{
+    margin-top: calc(116px - 323px) !important;
+}
+
+.card.insowa_usercheckout_card{
+    width: 1004px;
+    border-radius: 15px;
+    border-radius: 18px;
+    box-shadow: 5px 20px 40px 0 rgba(0, 0, 0, 0.16);
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row.current_tab{
+    width: 751px;
+    height: 48.5px;
+    margin-top: 35px;
+    margin-left : auto;
+    margin-right : auto;
+    margin-bottom: 55.5px;
+}
+
+.person, .product, .payment{
+    width:33%; 
+    text-align: center;
+    border-bottom: 1px solid #aaaaaa;
+    height:48.5px;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #bcbcbc;
+    cursor: pointer;
+    &.active{
+        color: #feb041;
+        border-bottom: 3px solid #feb041;
+    }
+}
+
+.card-info.hide{
+    display: none;
+}
+
+.card-info > .col-md-12 {
+    padding-left: 35px!important;
+    padding-right: 35px!important;
+}
+
+.card-info .form-row>.col, .form-row>[class*=col-] {
+    padding-left: 20px!important;
+    padding-right: 20px!important;
+}
+
+.card-info .form-row {
+    margin-bottom: 25px;
+}
+.card-info .form-row .control-label {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    color: #363636;
+}
+
+.card-info .my-3 {
+    padding-left: 14px;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    color: #363636;
+}
+
+.card-info .tripdrive_btn_primary {
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    margin-left: 20px;
+}
+
+.container-fluid {
+    width: 80% !important;
+}
+
+.col-md-8.order-md-1, .col-md-4.order-md-2.mb-4{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tab {
+    float: left;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    width: 30%;
+    overflow: hidden;
+
+    button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 22px 16px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        display: flex;
+
+        &.active.tablinks {
+            background-color: #3fa4e3;
+            color: #fff;
+        }
+
+        img {
+            margin-right: .6rem;
+        }
+    }
+} 
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    float: left;
+    padding: 0px 1.5rem;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}

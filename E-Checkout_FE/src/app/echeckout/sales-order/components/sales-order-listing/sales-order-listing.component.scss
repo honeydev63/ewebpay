@@ -1,0 +1,23 @@
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma';
+.search {
+    max-width: 292px;
+    border-right: none;
+    border-radius: 10px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0);
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset
+}
+span {
+    border-radius: 10px;
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+    // box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+.btn:focus {
+ box-shadow: $box-shadow-none;
+}
+.btn {
+    border-radius: $secondary-border-radius;
+    box-shadow: $box-shadow-none;
+}

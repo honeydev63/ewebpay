@@ -1,0 +1,64 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+       <div class="card w-100">
+          <div class="card-header">
+             <div class="row row-30 m-auto">
+                <div class="col-md-12 p-0">
+                   <h5 class="text-capitalize pt-2" *ngIf="!!UserFormType && UserFormType !== ''">{{UserFormType}} <span *ngIf="UserFormType === 'add'">new</span> QA Agent</h5>
+                   <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                      <span *ngIf="UserFormType === 'add'">Add New QA Agent</span>
+                      <span *ngIf="UserFormType !== 'add'">Edit QA Agent</span>
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="card-body d-flex wms_inventory_form">
+             <div class="col-12 p-0" *ngIf="!!agentDetailsForm">
+                <form class="form-signin" [formGroup]="agentDetailsForm" #agentDetails="ngForm" (ngSubmit)="saveAgentDetails(agentDetails)">
+                <div class="row">
+                   <div class="col-12" *ngIf="!!agentDetailsForm">
+                     <div class="form-row" *ngIf="!(UserFormType === 'add')">
+                        <div class="col-4 form-group required">
+                           <label class="control-label">QA Agent ID</label>
+                           <input type="text" class="form-control" placeholder="QA Agent ID" name="agent_id" formControlName="agent_id" disabled>
+                        </div>
+                     </div>
+                      <div class="form-row">
+                         <div class="col-4 form-group required">
+                            <label class="control-label">QA Agent Name</label>
+                            <input type="text" class="form-control" placeholder="QA Agent Name" name="agent_name" formControlName="agent_name">
+                            <div class="d-flex justify-content-end mb-1 py-1">
+                               <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('agent_name').hasError('required')">Please fill out this field.</span>
+                               <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('agent_name').hasError('maxlength')">Product name Can not exceed 100 characters</span>
+                            </div>
+                         </div>
+                         <div class="col-4 form-group required">
+                            <label class="control-label">QA Agent Mobile Number</label>
+                            <input type="text" class="form-control" placeholder="QA Agent Mobile Number" name="mobile" formControlName="mobile">
+                            <div class="d-flex justify-content-end mb-1 py-1">
+                               <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('mobile').hasError('required')">Please fill out this field.</span>
+                               <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('mobile').hasError('pattern')">Please enter valid mobile  number.</span>
+                            </div>
+                         </div>
+                         <div class="col-4 form-group required">
+                            <label class="control-label">QA Agent Email ID</label>
+                            <input type="text" class="form-control" placeholder="QA Agent Email ID"  autofocus name="email" formControlName="email" >
+                            <div class="d-flex justify-content-end mb-1 py-1">
+                                <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('email').hasError('required')">Please fill out this field.</span>
+                               <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && agentDetailsForm.get('email').hasError('email')">Please enter a valid Email ID.</span>
+                            </div>
+                         </div>
+                      </div>
+                      <hr>
+                   </div>
+                </div>
+                <div class="form-row m-0">
+                      <button class="btn wms_btn_primary mx-2 ml-auto" type="submit">Save</button>
+                      <button class="btn wms_btn_secondary" [routerLink]="['/qa']">Cancel</button>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+       </div>
+    </div>

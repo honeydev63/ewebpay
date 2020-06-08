@@ -1,0 +1,25 @@
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma';
+
+.header {
+    background: $table-background;
+}
+.view-table {
+    p {
+        font-size: 1rem !important;
+        margin: 0;
+    }
+}
+.table-tittle-order {
+    font-size: 18px !important;
+    font-weight: bold;
+    color: $primary-orange;
+    text-decoration: underline;
+}
+.table td, .table th {
+    border-top: none !important;
+    width: 33.33% !important; 
+}
+p {
+    margin: 0 !important;
+}

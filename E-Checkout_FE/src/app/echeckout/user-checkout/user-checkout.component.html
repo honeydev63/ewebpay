@@ -1,0 +1,392 @@
+<nav class="navbar navbar-light navbar-expand-lg p-1 tripdrive_navbar">
+   <!-- <a class="navbar-brand cursor-pointer"> -->
+   <img src="assets/images/logo/logo1.png"class="d-inline-block align-top" alt="Logo">
+   <!-- </a> -->
+</nav>
+<div class="tripdrive_listing_header pt-5">
+   <div class="container-fluid">
+      <ng-template [ngIf]="!thankyouTemplate">
+         <div class="container py-5" *ngIf="!!orderDetails && orderDetails.is_order_exist === false">
+            <div class="jumbotron text-center">
+               <h1 class="display-5">User ID Not Found.</h1>
+               <p class="lead"><strong>Please check your email</strong> for further instructions.</p>
+               <hr>
+               <p>
+                  Having trouble? &nbsp; Please mail us at: <b>contact@ewebpay.com</b>
+               </p>
+            </div>
+         </div>
+         <div class="card insowa_usercheckout_card" *ngIf="!!orderDetails && orderDetails.is_order_exist === true">
+            <div class="card-body">
+               <div class="row current_tab" >
+                  <div class = "person" [ngClass]="cur_tab == 0? 'active': ''" (click)="goToTab($event, 0)"> Personal Information</div>
+                  <div class = "product" [ngClass]="cur_tab == 1? 'active': ''" (click)="goToTab($event, 1)"> Product Details </div>
+                  <div class = "payment" [ngClass]="cur_tab == 2? 'active': ''" (click)="goToTab($event, 2)"> Payment Mode </div>
+               </div>
+               <form class="form-signin" novalidate [formGroup]="usercheckoutForm" *ngIf="!!usercheckoutForm" #userDetails="ngForm" (ngSubmit)="saveUserDetails(userDetails)">
+                  <div class="row person_info card-info" [ngClass]="cur_tab != 0? 'hide': ''">
+                     <fieldset formGroupName="personInfoForm">
+                        <div class="col-md-12 ">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">First Name</label>
+                                       <input type="text" class="form-control" maxLength="100" placeholder="First Name" name="firstname" formControlName="firstname" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.firstname.errors }">
+                                       <div *ngIf="persionInfoSubmitted && personInfo.firstname.errors" class="invalid-feedback">
+                                          <div *ngIf="personInfo.firstname.errors.required">First Name is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Last Name</label>
+                                       <input type="text" class="form-control" placeholder="Last Name" maxLength="100" autofocus name="lastname" formControlName="lastname" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.lastname.errors }">
+                                       <div *ngIf="persionInfoSubmitted && personInfo.lastname.errors" class="invalid-feedback">
+                                          <div *ngIf="personInfo.lastname.errors.required">Last Name is required</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Email Address</label>
+                                       <input type="email" class="form-control" maxLength="100" placeholder="Email Address" name="emailaddress" formControlName="emailaddress" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.emailaddress.errors }">
+                                       <div *ngIf="persionInfoSubmitted && personInfo.emailaddress.errors" class="invalid-feedback">
+                                          <div *ngIf="personInfo.emailaddress.errors.required">Email Address is required</div>
+                                          <div *ngIf="personInfo.emailaddress.errors.email">Email Address is invalid</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Phone Number</label>
+                                       <input type="text" class="form-control" placeholder="Phone Number" minlength="5" maxLength="50" autofocus name="phonenumber" formControlName="phonenumber" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.phonenumber.errors }">
+                                       <div *ngIf="persionInfoSubmitted && personInfo.phonenumber.errors" class="invalid-feedback">
+                                          <div *ngIf="personInfo.phonenumber.errors.required">Phone Number is required</div>
+                                          <div *ngIf="personInfo.phonenumber.errors.pattern">Phone Number is invalid</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Alt Phone Number</label>
+                                       <input type="text" class="form-control" maxLength="100" placeholder="Alt Phone Number" name="altphonenumber" formControlName="altphonenumber" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.altphonenumber.errors }">
+                                       <div *ngIf="persionInfoSubmitted && personInfo.altphonenumber.errors" class="invalid-feedback">
+                                          <div *ngIf="personInfo.altphonenumber.errors.pattern">Alt Phone Number is invalid</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+   
+                              <div class="col-md-12">
+                                 <h4 class="my-3">Billing address</h4>
+                                 <fieldset [disabled]="isFormDisable === true">
+                                    <div class="form-row">
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Billing Address </label>
+                                          <input type="text" class="form-control" maxLength="100" placeholder="Billing Address" name="address1" formControlName="address1" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.address1.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.address1.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.address1.errors.required">Address is required</div>
+                                          </div>
+                                       </div>
+   
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">City</label>
+                                          <input type="text" class="form-control" placeholder="City" minlength="5" maxLength="50" autofocus name="city" formControlName="city" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.city.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.city.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.city.errors.required">City is required</div>
+                                             <div *ngIf="personInfo.city.errors.pattern">City should contain only alphabets</div>
+                                             <div *ngIf="personInfo.city.errors.minlength">City should be minimum 5 character</div>
+                                          </div>
+                                       </div>
+                                    </div>
+   
+                                    <div class="form-row">
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Country </label>
+                                          <input type="text" class="form-control" placeholder="Country" minlength="5" maxLength="50" autofocus name="country" formControlName="country" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.country.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.country.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.country.errors.required">Country is required</div>
+                                             <div *ngIf="personInfo.country.errors.pattern">Country should contain only alphabets</div>
+                                             <div *ngIf="personInfo.country.errors.minlength">Country should be minimum 5 character</div>
+                                          </div>
+                                       </div>
+   
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Zip Code </label>
+                                          <input type="text" class="form-control" placeholder="Zip Code" minlength="5" maxLength="7" autofocus name="zip_code" formControlName="zip_code" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.zip_code.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.zip_code.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.zip_code.errors.required">Zipcode is required</div>
+                                             <div *ngIf="personInfo.zip_code.errors.pattern">Zipcode is invalid</div>
+                                             <div *ngIf="personInfo.zip_code.errors.minlength">Zipcode should be minimum 5 character</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </fieldset>
+                                 
+                                 <h4 class="my-3">Shipping address</h4>
+                                 <div class="form-row">
+                                    <div class="col-6">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="same-address" [checked]="isChecked" (change)="checkValue($event)">
+                                          <label class="custom-control-label" for="same-address">Shipping Address Same as Billing Address</label>
+                                       </div>
+                                    </div>
+                                 </div>
+   
+                                 <fieldset  [disabled]="isFormDisable === true">
+                                    <div class="form-row">
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Street Address</label>
+                                          <input type="text" class="form-control" [disabled]="isChecked === false" placeholder="Billing Address" maxlength="100" name="s_address1" formControlName="s_address1" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.s_address1.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.s_address1.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.s_address1.errors.required">Billing Address is required</div>
+                                          </div>
+                                       </div>
+                                       
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">City</label>
+                                          <input type="text" class="form-control" placeholder="City" minlength="5" maxLength="50" autofocus name="s_city" formControlName="s_city" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.s_city.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.s_city.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.s_city.errors.required">City is required</div>
+                                             <div *ngIf="personInfo.s_city.errors.pattern">City should contain only alphabets</div>
+                                             <div *ngIf="personInfo.s_city.errors.minlength">City should be minimum 5 characters</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="form-row">
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Country</label>
+                                          <input type="text" class="form-control" placeholder="Country" minlength="5" maxLength="50" autofocus name="s_country" formControlName="s_country" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.s_country.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.s_country.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.s_country.errors.required">Country is required</div>
+                                             <div *ngIf="personInfo.s_country.errors.pattern">Country is invalid</div>
+                                             <div *ngIf="personInfo.s_country.errors.minlength">Country should be minimum 5 characters</div>
+                                          </div>
+                                       </div>
+                                       
+                                       <div class="col-6 form-group required">
+                                          <label class="control-label">Zip Code</label>
+                                          <input type="text" class="form-control" placeholder="Zip Code" minlength="5" maxLength="7" autofocus name="s_zip_code" formControlName="s_zip_code" [ngClass]="{ 'is-invalid': persionInfoSubmitted && personInfo.s_zip_code.errors }">
+                                          <div *ngIf="persionInfoSubmitted && personInfo.s_zip_code.errors" class="invalid-feedback">
+                                             <div *ngIf="personInfo.s_zip_code.errors.required">Zipcode is required</div>
+                                             <div *ngIf="personInfo.s_zip_code.errors.pattern">Zipcode is invalid</div>
+                                             <div *ngIf="personInfo.s_zip_code.errors.minlength">Zipcode should be minimum 5 characters</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </fieldset>
+                              </div>
+                           </div>
+                           <div class="form-row py-3">
+                              <button type="button" class="btn tripdrive_btn_primary w-25" (click)="gotoProduct()">Save & Next</button>
+                           </div>
+                        </div>
+                     </fieldset>
+                  </div>
+                  <div class="row product_details card-info" [ngClass]="cur_tab != 1? 'hide': ''">
+                     <div class="col-md-12 ">
+                        <fieldset formGroupName="productDetailForm">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Product Name</label>
+                                       <input type="text" class="form-control" maxLength="100" disabled placeholder="Product Name" name="product_name" formControlName="product_name" [ngClass]="{ 'is-invalid': prdouctDetailSubmitted && productDetail.product_name.errors }">
+                                       <div *ngIf="prdouctDetailSubmitted && productDetail.product_name.errors" class="invalid-feedback">
+                                          <div *ngIf="productDetail.product_name.errors.required">Product Name is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Product ID</label>
+                                       <input type="text" class="form-control" placeholder="Product ID" disabled name="product_id" formControlName="product_id" [ngClass]="{ 'is-invalid': prdouctDetailSubmitted && productDetail.product_id.errors }">
+                                       <div *ngIf="prdouctDetailSubmitted && productDetail.product_id.errors" class="invalid-feedback">
+                                          <div *ngIf="productDetail.product_id.errors.required">Product ID is required</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Product Qty</label>
+                                       <input type="text" class="form-control" maxLength="100" disabled placeholder="Product Qty" name="product_qty" formControlName="product_qty" [ngClass]="{ 'is-invalid': prdouctDetailSubmitted && productDetail.product_qty.errors }">
+                                       <div *ngIf="prdouctDetailSubmitted && productDetail.product_qty.errors" class="invalid-feedback">
+                                          <div *ngIf="productDetail.product_qty.errors.required">Product Qty is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Price</label>
+                                       <input type="text" class="form-control" placeholder="Price" disabled name="price" formControlName="price" [ngClass]="{ 'is-invalid': prdouctDetailSubmitted && productDetail.price.errors }">
+                                       <div *ngIf="prdouctDetailSubmitted && productDetail.price.errors" class="invalid-feedback">
+                                          <div *ngIf="productDetail.price.errors.required">Product Price is required</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-6 form-group required">
+                                       <label class="control-label">Total Amount</label>
+                                       <input type="text" class="form-control" maxLength="100" disabled placeholder="Total Amount" name="total_amount" formControlName="total_amount" [ngClass]="{ 'is-invalid': prdouctDetailSubmitted && productDetail.total_amount.errors }">
+                                       <div *ngIf="prdouctDetailSubmitted && productDetail.total_amount.errors" class="invalid-feedback">
+                                          <div *ngIf="productDetail.total_amount.errors.required">Product Qty is required</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-row py-3">
+                              <button type="button" class="btn tripdrive_btn_primary w-25" (click)="gotoPayment()">Save & Next</button>
+                           </div>
+                        </fieldset>
+                     </div>
+                  </div>
+                  <div class="row product_details card-info" [ngClass]="cur_tab != 2? 'hide': ''">
+                     <div class="tab">
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 0)" [ngClass]="cur_payment_method == 0? 'active': ''" >
+                           <!-- <img src="assets/images/payment_card.svg" class="payment-icons" alt="Card"> -->
+                           <img src="assets/images/payment_crypto.svg" class="payment-icons" alt="Card">
+                           Credit/Debit Card
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 1)" [ngClass]="cur_payment_method == 1? 'active': ''" >
+                           <img src="assets/images/payment_crypto.svg" class="payment-icons" alt="Crypto">
+                           Cryptocurrency Wallet
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 2)" [ngClass]="cur_payment_method == 2? 'active': ''" >
+                           <img src="assets/images/payment_check.svg" class="payment-icons" alt="Check">
+                           Check Payment
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 3)" [ngClass]="cur_payment_method == 3? 'active': ''" >
+                           <img src="assets/images/payment_apple.svg" class="payment-icons" alt="Apple">
+                           Apple Pay
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 4)" [ngClass]="cur_payment_method == 4? 'active': ''" >
+                           <img src="assets/images/payment_google.svg" class="payment-icons" alt="Google">
+                           Google Pay
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 5)" [ngClass]="cur_payment_method == 5? 'active': ''" >
+                           <img src="assets/images/payment_cash.svg" class="payment-icons" alt="Cash">
+                           Cash App Pay
+                        </button>
+                        <button class="tablinks" (click)="goToPaymentMethod($event, 6)" [ngClass]="cur_payment_method == 6? 'active': ''" >
+                           <img src="assets/images/payment_gift.svg" class="payment-icons" alt="Gift">
+                           Gift Cards
+                        </button>
+                     </div>
+                     
+                     <div id="payment_card" class="tabcontent" [ngClass]="cur_payment_method == 0? 'active': ''">
+                        <fieldset formGroupName="cardPaymentForm">
+                           <h3>Credit/Debit Card</h3>
+                           <p>Add New Card For Payment</p>
+
+                           <div class="form-group required">
+                              <label class="control-label">Card Number</label>
+                              <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX" name="card_card_no" formControlName="card_card_no" [ngClass]="{ 'is-invalid': submitted && cardPayment.card_card_no.errors }">
+                              <div *ngIf="submitted && cardPayment.card_card_no.errors" class="invalid-feedback">
+                                 <div *ngIf="cardPayment.card_card_no.errors.required">Card Number is required</div>
+                                 <div *ngIf="cardPayment.card_card_no.errors.pattern">Card Number is invalid</div>
+                              </div>
+                           </div>
+                           
+                           <img src="assets/images/cards.png" class="" alt="Cards">
+
+                           <div class="form-group required">
+                              <label class="control-label">Name on Card</label>
+                              <input type="text" class="form-control" placeholder="Josph Doe" name="card_name_on_card" formControlName="card_name_on_card" [ngClass]="{ 'is-invalid': submitted && cardPayment.card_name_on_card.errors }">
+                              <div *ngIf="submitted && cardPayment.card_name_on_card.errors" class="invalid-feedback">
+                                 <div *ngIf="cardPayment.card_name_on_card.errors.required">Name on Card is required</div>
+                                 <div *ngIf="cardPayment.card_name_on_card.errors.pattern">Name on Card is invalid</div>
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <img src="assets/images/payment_gift.svg" class="payment-icons" alt="Gift">
+                           </div>
+
+                           <div class="form-row py-3">
+                              <button type="submit" class="btn tripdrive_btn_primary w-25">Save & Proceed</button>
+                           </div>
+                        </fieldset>
+                     </div>
+                     
+                     <div id="payment_crypto" class="tabcontent" [ngClass]="cur_payment_method == 1? 'active': ''">
+                        <h3>Cryptocurrency Wallet</h3>
+                        <p></p>
+                     </div>
+                     
+                     <div id="payment_check" class="tabcontent" [ngClass]="cur_payment_method == 2? 'active': ''">
+                        <h3>Check Payment</h3>
+                        <p>Tokyo is the capital of Japan.</p>
+                     </div>
+                     
+                     <div id="payment_apple" class="tabcontent" [ngClass]="cur_payment_method == 3? 'active': ''">
+                        <h3>Apple Pay</h3>
+                        <p>London is the capital city of England.</p>
+                     </div>
+                     
+                     <div id="payment_google" class="tabcontent" [ngClass]="cur_payment_method == 4? 'active': ''">
+                        <h3>Google Pay</h3>
+                        <p>Paris is the capital of France.</p>
+                     </div>
+                     
+                     <div id="payment_cash" class="tabcontent" [ngClass]="cur_payment_method == 5? 'active': ''">
+                        <h3>Cash App Pay</h3>
+                        <p>Add your details to make payment</p>
+
+                        <!-- <div class="form-group required">
+                           <label class="control-label">Mobile No.</label>
+                           <input type="text" class="form-control" placeholder="Mobile No" name="cash_mobile_no" formControlName="cash_mobile_no" [ngClass]="{ 'is-invalid': submitted && usercheckout.cash_mobile_no.errors }">
+                           <div *ngIf="submitted && usercheckout.cash_mobile_no.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.cash_mobile_no.errors.required">Mobile No is required</div>
+                              <div *ngIf="usercheckout.cash_mobile_no.errors.pattern">Mobile No is invalid</div>
+                           </div>
+                        </div>
+
+                        <div class="form-group required">
+                           <label class="control-label">Email ID</label>
+                           <input type="text" class="form-control" placeholder="Email ID" name="cash_email_id" formControlName="cash_email_id" [ngClass]="{ 'is-invalid': submitted && usercheckout.cash_email_id.errors }">
+                           <div *ngIf="submitted && usercheckout.cash_email_id.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.cash_email_id.errors.required">Email ID is required</div>
+                              <div *ngIf="usercheckout.cash_email_id.errors.pattern">Email ID is invalid</div>
+                           </div>
+                        </div>
+
+                        <div class="form-group required">
+                           <label class="control-label">Cashtag</label>
+                           <input type="text" class="form-control" placeholder="Cashtag" name="cash_cashtag" formControlName="cash_cashtag" [ngClass]="{ 'is-invalid': submitted && usercheckout.cash_cashtag.errors }">
+                           <div *ngIf="submitted && usercheckout.cash_cashtag.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.cash_cashtag.errors.required">Cashtag is required</div>
+                              <div *ngIf="usercheckout.cash_cashtag.errors.pattern">Cashtag is invalid</div>
+                           </div>
+                        </div>
+
+                        <div class="form-group required">
+                           <label class="control-label">Enter what the payment is for</label>
+                           <input type="text" class="form-control" placeholder="Payment For" name="cash_payment_for" formControlName="cash_payment_for" [ngClass]="{ 'is-invalid': submitted && usercheckout.cash_payment_for.errors }">
+                           <div *ngIf="submitted && usercheckout.cash_payment_for.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.cash_payment_for.errors.required">Payment For is required</div>
+                              <div *ngIf="usercheckout.cash_payment_for.errors.pattern">Payment For is invalid</div>
+                           </div>
+                        </div> -->
+                     </div>
+                     
+                     <div id="payment_gift" class="tabcontent" [ngClass]="cur_payment_method == 6? 'active': ''">
+                        <h3>Gift Cards</h3>
+                        <p>Tokyo is the capital of Japan.</p>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </ng-template>
+      <ng-template [ngIf]="thankyouTemplate">
+         <div class="jumbotron text-center">
+            <h1 class="display-3">Thank You!</h1>
+            <p class="lead"><strong>Please check your email</strong> for further instructions.</p>
+            <hr>
+            <p>
+               Having trouble? &nbsp; Please mail us at: <b>contact@ewebpay.com</b>
+            </p>
+            <p class="lead">
+               <a class="btn tripdrive_btn_primary w-50" href="#" [routerLink]="['/']" role="button">Continue</a>
+            </p>
+         </div>
+      </ng-template>
+      <footer class="py-2 text-muted text-center text-small">
+         <p class="m-auto"><small>&copy;2020 ewebpay. All rights reserved</small></p>
+      </footer>
+   </div>
+</div>

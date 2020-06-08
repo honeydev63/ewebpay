@@ -1,0 +1,106 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="row row-30 m-auto">
+         <div class="col-md-6 px-4 py-3">
+            <h3 class="m-0">Customers</h3>
+            <p class="text-primary py-1 m-0">
+               <span class="text-secondary">Customers</span>
+            </p>
+         </div>
+         <div class="col d-flex justify-content-end align-items-center h-auto px-0">
+            <div class="d-flex mx-1" *ngIf="pages && !!pages.perPage">
+               <span class="px-1 m-auto font-weight-bold">Size: </span>
+               <ng-select [items]="rowLimits"
+               bindLabel="name"
+               [clearable]="false"
+               [(ngModel)]="pages.perPage"
+               (ngModelChange)="changeRowLimits($event)"
+               >
+               </ng-select>
+            </div>
+            <div class="w-40">
+               <form [formGroup]="searchForm">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search here..." formControlName="search" name="search">
+                     <div class="input-group-append ">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <button class="btn wms_btn_link p-2 mx-2" type="button" (click)="exportFile()" *ngIf="localUserRole === userRole.admin">
+               <i class="fa fa-exchange" aria-hidden="true"></i>
+               Export
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" [routerLink]="['/customers/create-customer']">
+               <i class="fa fa-plus" aria-hidden="true"></i>
+               Add New Customer
+            </button>
+         </div>
+   </div>
+   <div *ngIf="!!rows">
+      <ngx-datatable 
+      class="material"
+      [rows]="rows"
+      [columnMode]="ColumnMode.force" 
+      [headerHeight]="50" 
+      [footerHeight]="50"
+      rowHeight="auto"
+      [externalPaging]="true"
+      [count]="pages.totalEntries"
+      [offset]="pages.currentPage"
+      [limit]="pages.perPage"
+      (page)="setPage($event)"
+      >
+      <ngx-datatable-column name="Customer ID" prop="id" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Customer Name" prop="first_name" [sortable]="false"></ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Type" prop="type"></ngx-datatable-column> -->
+      <ngx-datatable-column name="Mobile Number" prop="mobile" [sortable]="false" *ngIf="localUserRole === userRole.admin"></ngx-datatable-column>
+      <ngx-datatable-column name="Email ID" prop="email" [sortable]="false" *ngIf="localUserRole === userRole.admin"></ngx-datatable-column>
+      <ngx-datatable-column name="Payment Type" prop="is_card_payment" [sortable]="false" *ngIf="localUserRole === userRole.admin">
+         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.is_card_payment === true ? 'Card' : 'Bank'}}
+         </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions" prop="product_id" [width]="240" [sortable]="false" *ngIf="localUserRole === userRole.admin">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+         <!-- {{value}} {{row}} -->
+         <span class="mx-1 "></span>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="viewCustomer(row)" data-toggle="tooltip" data-placement="bottom" title="View Customer"><i class="fa fa-eye"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editCustomer(row)" data-toggle="tooltip" data-placement="bottom" title="Edit Customer"><i class="fa fa-edit"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="deleteCustomer(row)" data-toggle="tooltip" data-placement="bottom" title="Delete Customer"><i class="fa fa-trash"></i></button>
+         <!-- <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editOrder(row)" data-toggle="tooltip" data-placement="bottom" title="Edit  Order" *ngIf="row.status.id === 1"><i class="fa fa-edit"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="downloadInvoice(row)" data-toggle="tooltip" data-placement="bottom" title="Download Invoice" *ngIf="row.status.id === 2"><i class="fa fa-download"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="printInvoice(row)" data-toggle="tooltip" data-placement="bottom" title="Print Invoice" *ngIf="row.status.id === 2"><i class="fa fa-print"></i></button>  -->
+      </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-footer *ngIf="!!pages.totalEntries">
+         <ng-template
+            ngx-datatable-footer-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-count="totalEntries"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset"
+            >
+            <div class="w-25" style="padding: 5px 10px">
+               <div> Showing {{((curPage - 1) * pageSize) + 1 }} - {{pageSize > rowCount ? rowCount : ((pageSize * curPage) > rowCount ? rowCount : pageSize * curPage)}} products of {{rowCount}} products </div>
+            </div>
+            <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-icon-left'"
+            [pagerRightArrowIcon]="'datatable-icon-right'"
+            [pagerPreviousIcon]="'datatable-icon-prev'"
+            [pagerNextIcon]="'datatable-icon-skip'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!((rowCount / pageSize) > 1)"
+            (change)="setPage($event)">
+            </datatable-pager>
+         </ng-template>
+      </ngx-datatable-footer>
+      </ngx-datatable>
+   </div>
+   </div>
+</div>

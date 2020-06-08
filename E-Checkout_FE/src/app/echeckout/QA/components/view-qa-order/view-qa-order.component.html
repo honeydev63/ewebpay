@@ -1,0 +1,113 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+       <div class="card w-100">
+          <div class="card-header">
+             <div class="row row-30 m-auto">
+                <div class="col-md-11 p-0">
+                   <h5 class="text-capitalize pt-2">QA Order : <strong>{{orderData?.agent_name}}</strong></h5>
+                   <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                      <span class="cursor-pointer" [routerLink]="['/QA']"> QA Order </span> / <span class="cursor-pointer">View QA Order</span>
+                   </p>
+                </div>
+                <div class="col-md-1 p-0 text-right">
+                   <button class="btn wms_btn_secondary" (click)="viewOrderBack()">Back</button>
+                </div>
+             </div>
+          </div>
+          <div class="card-body p-4">
+             <p><b>QA Order Details: </b></p>
+             <table class="table table-bordered" *ngIf="!!orderData; else noQAorderData">
+                <tbody>
+                   <tr>
+                      <td>
+                         <p><b>Qa Order Id: </b></p>
+                         <p>{{orderData.id === null ? 'NA' : orderData.id}}</p>
+                      </td>
+                      <td>
+                         <p><b>Agent Name: </b></p>
+                         <p>{{orderData.agent_name === null ? 'NA' : orderData.agent_name}}</p>
+                      </td>
+                      <td>
+                         <p><b>Mobile Number: </b></p>
+                         <p>{{orderData.mobile === null ? 'NA' : orderData.mobile}}</p>
+                      </td>
+                   </tr>
+                   <tr>
+                    <td>
+                       <p><b>Email Id: </b></p>
+                       <p>{{orderData.email === null ? 'NA' : orderData.email}}</p>
+                    </td>
+                    <td>
+                       <p><b>Total Price: </b></p>
+                       <p>{{orderData.total_price === null ? 'NA' : orderData.total_price}}</p>
+                    </td>
+                    <td>
+                       <p><b>Created At: </b></p>
+                       <p>{{orderData.created_timestamp | date:'medium'}}</p>
+                    </td>
+                 </tr>
+                 <tr>
+                    <td>
+                       <p><b>Payment Mode: </b></p>
+                       <p>{{orderData.is_card_payment === true ? 'Card' : 'Bank'}}</p>
+                    </td>
+                    <td>
+                       <p><b>Created At: </b></p>
+                       <p>{{orderData.created_timestamp | date:'medium'}}</p>
+                    </td>
+                 </tr>
+                 <tr>
+                    <td>
+                       <p><b>QA Order Status: </b></p>
+                       <p>
+                           <span *ngIf="orderData.qa_orderstatus === 'not_verified'">Not Verified</span>
+                           <span *ngIf="orderData.qa_orderstatus === 'verified'">Verified</span>
+                           <span *ngIf="orderData.qa_orderstatus === 'fraud'">Fraud</span>
+                           <span *ngIf="orderData.qa_orderstatus === 'suspicious'">Suspicious</span>
+                           <span *ngIf="orderData.qa_orderstatus === 'other'">Other</span>
+                           <span *ngIf="orderData.qa_orderstatus === 'resolved'">Resolved</span>
+                        </p>
+                    </td>
+                    <td>
+                       <p><b>QA Reason: </b></p>
+                       <p>{{orderData.qa_reason === null ? 'NA' : orderData.qa_reason}}</p>
+                    </td>
+                    <td>
+                       <p><b>QA Status Updated At: </b></p>
+                       <p>{{orderData.qa_status_updated_timestamp === null ? 'NA' : orderData.qa_status_updated_timestamp | date:'medium'}}</p>
+                    </td>
+                 </tr>
+                 <tr>
+                    <td>
+                       <p><b>Sales Agent Updated Status: </b></p>
+                       <p>
+                           <span *ngIf="orderData.agent_updated_status === 'not_verified'">Not Verified</span>
+                           <span *ngIf="orderData.agent_updated_status === 'verified'">Verified</span>
+                           <span *ngIf="orderData.agent_updated_status === 'fraud'">Fraud</span>
+                           <span *ngIf="orderData.agent_updated_status === 'suspicious'">Suspicious</span>
+                           <span *ngIf="orderData.agent_updated_status === 'other'">Other</span>
+                           <span *ngIf="orderData.agent_updated_status === 'resolved'">Resolved</span>
+                           <span *ngIf="orderData.agent_updated_status === 'not_resolved'">Not Resolved</span>
+                        </p>
+                    </td>
+                    <td>
+                       <p><b>Sales Agent Reason: </b></p>
+                       <p>{{orderData.agent_reason === null ? 'NA' : orderData.agent_reason}}</p>
+                    </td>
+                    <td>
+                       <p><b>Sales Agent Status Updated At: </b></p>
+                       <p>{{orderData.agent_status_updated_timestamp | date:'medium'}}</p>
+                       <p *ngIf="orderData.agent_status_updated_timestamp === null">N/A</p>
+                    </td>
+                 </tr>
+                </tbody>
+             </table>
+             <ng-template #noQAorderData>
+                <p>
+                   No Data To Display
+                </p>
+             </ng-template>
+          </div>
+       </div>
+    </div>
+ </div>

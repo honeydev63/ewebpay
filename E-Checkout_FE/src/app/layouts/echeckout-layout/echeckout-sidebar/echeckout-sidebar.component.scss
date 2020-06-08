@@ -1,0 +1,377 @@
+@import 'src/assets/scss/epharma';
+@import 'src/assets/scss/_variables.scss';
+
+.sidebar {
+    box-shadow: 0px 5px 10px 0 rgba(77, 77, 77, 0.08);
+    top: 12%;
+    background: #272264;
+    position: fixed;
+    height:  80vh;
+    overflow: auto;
+    z-index: 1031;
+    animation: animateleft 1s;
+    margin: 0.5rem 0rem 0rem 0rem;
+    border-radius: $secondary-border-radius;
+    padding-bottom: 2rem;
+
+    .content {
+      text-align: center;
+      .sidebar_btns {
+        text-align: right;
+        .openbtn {
+          background: transparent;
+          border: 0.1rem;
+          box-shadow: none;
+          color: $white;
+          font-size: 1.5rem;
+        }
+      }
+      .sm-sidebar {
+        .img:hover {
+          background: none;
+        }
+          img {
+            width: 1rem;
+            height: 1rem;
+            }
+        a {
+          font-size: 1.4rem;
+          display: block;
+          color: $white;
+          cursor: pointer;
+          animation:animateleft 2s;
+        }
+        a#product {
+          padding: 0.7rem;
+          background: url("/assets/images/product/product.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#product.active, a#product:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/product.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#order {
+          padding: 0.7rem;
+          background: url("/assets/images/product/order.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#order.active, a#order:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/order.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#agent {
+          padding: 0.7rem;
+          background: url("/assets/images/product/agent.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#agent.active, a#agent:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/agent.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#customer {
+          padding: 0.7rem;
+          background: url("/assets/images/product/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#customer.active, a#customer:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#merchant {
+          padding: 0.7rem;
+          background: url("/assets/images/product/merchant.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#merchant.active, a#merchant:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/merchant.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#work_order {
+          padding: 0.7rem;
+          background: url("/assets/images/product/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#work_order.active, a#work_order:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a#echeckout_qa {
+          padding: 0.7rem;
+          background: url("/assets/images/product/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+          transition: all 0.3s ease;
+        }
+        a#echeckout_qa.active, a#echeckout_qa:hover {
+          padding: 0.7rem;
+          background: url("/assets/images/hover/customer.svg") no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        a:hover {
+         color: $primary-orange;
+        }
+        a.active {
+          color: $primary-orange;
+        }
+        .nav-link {
+          padding: .5rem 0.5rem;
+        }
+        .subnav_list {
+          list-style: none;
+          padding: 0px;
+          a {
+            font-size: small;
+          }
+        }
+      }
+      .lg-sidebar {
+        .img:hover {
+          background: none !important;
+        }
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .nav-item {
+          text-align: left;
+          font-weight: normal;
+          font-size: $base-font-size-sm;
+          cursor: pointer;
+          border-bottom: 0.5px solid $white;
+        }
+        .nav-item:hover {
+            font-weight: normal;
+            color: $primary-orange;
+        }
+        a {
+          display: block;
+          color: $white;
+          text-decoration: none;
+          background: transparent;
+        }
+        a#dashboard{
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/dashboard.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#dashboard:hover{
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/product/dashboard.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#product {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/product.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#product.active, a#product:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/product.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#order {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/order.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#order.active, a#order:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/order.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#agent {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/agent.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#agen.active, a#agent:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/agent.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#customer {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/customer.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#customer.active, a#customer:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/customer.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#merchant {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/merchant.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#merchant.active, a#merchant:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/merchant.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#work_order {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/product.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#work_order.active, a#work_order:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/product.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#echeckout_qa {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          text-align: left;
+          background: url("/assets/images/product/agent.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        a#echeckout_qa.active, a#echeckout_qa:hover {
+          padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+          background: url("/assets/images/hover/agent.svg") no-repeat;
+          background-size: auto;
+          background-position: left;
+        }
+        .fa-chevron-down {
+          font-size: x-small;
+        }
+        a:hover{
+          font-weight: normal;
+          color: $primary-orange;
+        }
+        a.active {
+          font-weight: normal;
+          color: $primary-orange;
+        }
+        .subnav_list {
+          list-style: none;
+          padding: 0px;
+          .nav-item {
+            font-size: small;
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+  @keyframes animateleft{
+    from {
+      left:-300px;
+      opacity:0;
+    }
+    to
+    {
+      left:0;
+      opacity:1;
+    }
+  }
+  /* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: transparent;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

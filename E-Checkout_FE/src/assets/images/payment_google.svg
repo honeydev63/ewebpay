@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="prefix__Group_632" data-name="Group 632" transform="translate(-185 -423)">
+        <rect id="prefix__Rectangle_356" width="23" height="23" data-name="Rectangle 356" rx="5" transform="translate(185 423)" style="fill:#363636"/>
+        <g id="prefix__google" transform="translate(190 428.566)">
+            <path id="prefix__Path_713" d="M248.785 197.507a6.413 6.413 0 0 0-.113-1.2.377.377 0 0 0-.37-.306h-5.925a.377.377 0 0 0-.377.377v2.262a.377.377 0 0 0 .377.377h3.04a3.376 3.376 0 0 1-.757 1l2.131 2.131a6.385 6.385 0 0 0 1.994-4.641z" class="prefix__cls-2" data-name="Path 713" transform="translate(-235.918 -191.073)"/>
+            <path id="prefix__Path_714" d="M49.974 3.016a3.359 3.359 0 0 1 2.034.68.376.376 0 0 0 .492-.036l1.61-1.608a.377.377 0 0 0-.024-.556 6.4 6.4 0 0 0-9.423 1.33l2.213 2.213a3.394 3.394 0 0 1 3.098-2.023z" class="prefix__cls-2" data-name="Path 714" transform="translate(-43.541)"/>
+            <path id="prefix__Path_715" d="M49.974 316.539a6.366 6.366 0 0 0 3.835-1.286l-2.171-2.171a3.377 3.377 0 0 1-4.763-1.582l-2.213 2.213a6.407 6.407 0 0 0 5.312 2.826z" class="prefix__cls-2" data-name="Path 715" transform="translate(-43.541 -303.672)"/>
+            <path id="prefix__Path_716" d="M3.071 143.722a2.713 2.713 0 0 1 0-1.086l-2.366-2.365a6.35 6.35 0 0 0 0 5.817z" class="prefix__cls-2" data-name="Path 716" transform="translate(0 -136.746)"/>
+        </g>
+    </g>
+</svg>

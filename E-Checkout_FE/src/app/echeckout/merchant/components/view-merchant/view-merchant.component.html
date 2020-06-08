@@ -1,0 +1,204 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+   <div class="card w-100">
+      <div class="card-header">
+         <div class="row row-30 m-auto">
+            <div class="col-md-7">
+               <h5 class="pt-2 text-uppercase">View ( Merchant Id: {{merchantData?.id}} )</h5>
+               <p class="text-secondary py-1">
+                  <span class="pointer">View Merchant</span>
+               </p>
+            </div>
+            <div class="col-md-5 text-right">
+               <button class="btn wms_btn_secondary mx-2" (click)="merchantViewBack()">Back</button>
+            </div>
+         </div>
+       </div>
+      <div class="card-body p-4" *ngIf="!!merchantData">
+       <table class="table">
+          <thead>
+             <tr>
+                <th scope="col">Attributes</th>
+                <th scope="col">Values</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr *ngIf="!!merchantData.company_name && merchantData.company_name !== ''">
+                <th scope="row">Company Name:</th>
+                <td>{{merchantData?.company_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.merchant_name && merchantData.merchant_name !== ''">
+                <th scope="row">Merchant Name:</th>
+                <td>{{merchantData?.merchant_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.account_number && merchantData.account_number !== ''">
+                <th scope="row">Account Number:</th>
+                <td>{{merchantData?.account_number}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.routing_number && merchantData.routing_number !== ''">
+                <th scope="row">Routing Number:</th>
+                <td>{{merchantData?.routing_number}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.bank_name && merchantData.bank_name !== ''">
+                <th scope="row">Bank Name:</th>
+                <td>{{merchantData?.bank_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.merchant_name && merchantData.merchant_name !== ''">
+                <th scope="row">Merchant Name:</th>
+                <td>{{merchantData?.merchant_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.address_line1 && merchantData.address_line1 !== ''">
+                <th scope="row">Address Line 1:</th>
+                <td>{{merchantData?.address_line1}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.address_line2 && merchantData.address_line2 !== ''">
+                <th scope="row">Address Line 2:</th>
+                <td>{{merchantData?.address_line2}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.country_b && merchantData.country_b !== ''">
+                <th scope="row">Country:</th>
+                <td>{{merchantData?.country_b}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.state_b && merchantData.state_b !== ''">
+                <th scope="row">State:</th>
+                <td>{{merchantData?.state_b}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.city_b && merchantData.city_b !== ''">
+                <th scope="row">City:</th>
+                <td>{{merchantData?.city_b}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.zip && merchantData.zip !== ''">
+                <th scope="row">ZIP:</th>
+                <td>{{merchantData?.zip}}</td>
+             </tr>
+             
+             <tr *ngIf="!!merchantData.phone && merchantData.phone !== ''">
+                <th scope="row">Phone Number:</th>
+                <td>{{merchantData?.phone}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.email_b && merchantData.email_b !== ''">
+                <th scope="row">Email ID:</th>
+                <td>{{merchantData?.email_b}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.card_number && merchantData.card_number !== ''">
+                <th scope="row">Card Number:</th>
+                <td>{{merchantData?.card_number}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.expiry_date && merchantData.expiry_date !== ''">
+                <th scope="row">Expiry Date:</th>
+                <td>{{merchantData?.expiry_date}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.cvv && merchantData.cvv !== ''">
+                <th scope="row">CVV:</th>
+                <td>{{merchantData?.cvv}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.first_name && merchantData.first_name !== ''">
+                <th scope="row">Billing Address First Name:</th>
+                <td>{{merchantData?.first_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.last_name && merchantData.last_name !== ''">
+                <th scope="row">Billing Address Last Name:</th>
+                <td>{{merchantData?.last_name}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.mobile && merchantData.mobile !== ''">
+                <th scope="row">Billing Address Mobile Number:</th>
+                <td>{{merchantData?.mobile}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.country_code && merchantData.country_code !== ''">
+                <th scope="row">Billing Address Country Code:</th>
+                <td>{{merchantData?.country_code}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.email && merchantData.email !== ''">
+                <th scope="row">Billing Address Email ID:</th>
+                <td>{{merchantData?.email}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.billing_address1 && merchantData.billing_address1 !== ''">
+                <th scope="row">Billing Address Line 1:</th>
+                <td>{{merchantData?.billing_address1}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.billing_address2 && merchantData.billing_address2 !== ''">
+                <th scope="row">Billing Address Line 2:</th>
+                <td>{{merchantData?.billing_address2}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.country && merchantData.country !== ''">
+                <th scope="row">Billing Address Country:</th>
+                <td>{{merchantData?.country}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.state && merchantData.state !== ''">
+                <th scope="row">Billing Address State:</th>
+                <td>{{merchantData?.state}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.city && merchantData.city !== ''">
+                <th scope="row">Billing Address City:</th>
+                <td>{{merchantData?.city}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.zip_code && merchantData.zip_code !== ''">
+                <th scope="row">Billing Address Zip Code:</th>
+                <td>{{merchantData?.zip_code}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.s_mobile && merchantData.s_mobile !== ''">
+                <th scope="row">Mobile (Shiping):</th>
+                <td>{{merchantData?.s_mobile}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_country_code && merchantData.s_country_code !== ''">
+                <th scope="row">Country (Shiping):</th>
+                <td>{{merchantData?.s_country_code}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_email && merchantData.s_email !== ''">
+                <th scope="row">Email ID (Shiping):</th>
+                <td>{{merchantData?.s_email}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_address1 && merchantData.s_address1 !== ''">
+                <th scope="row">Address Line 1 (Shiping):</th>
+                <td>{{merchantData?.s_address1}}</td>
+             </tr>
+             
+             <tr *ngIf="!!merchantData.s_address2 && merchantData.s_address2 !== ''">
+                <th scope="row">Address Line 2 (Shiping):</th>
+                <td>{{merchantData?.s_address2}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_country && merchantData.s_country !== ''">
+                <th scope="row">Country (Shiping):</th>
+                <td>{{merchantData?.s_country}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_state && merchantData.s_state !== ''">
+                <th scope="row">State (Shiping):</th>
+                <td>{{merchantData?.s_state}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.s_city && merchantData.s_city !== ''">
+                <th scope="row">City (Shiping):</th>
+                <td>{{merchantData?.s_city}}</td>
+             </tr>
+ 
+             <tr *ngIf="!!merchantData.s_zip_code && merchantData.s_zip_code !== ''">
+                <th scope="row">Zip (Shiping):</th>
+                <td>{{merchantData?.s_zip_code}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.is_card_payment && merchantData.is_card_payment === true">
+                <th scope="row">Card Payment:</th>
+                <td>Yes</td>
+             </tr>
+             <tr *ngIf="!!merchantData.is_bank_payment && merchantData.is_bank_payment === true">
+                <th scope="row">Bank Payment:</th>
+                <td>Yes</td>
+             </tr>
+             <tr *ngIf="!!merchantData.mobile">
+                <th scope="row">Active:</th>
+                <td>{{merchantData?.is_active === true ? 'Active' : 'Inactive'}}</td>
+             </tr>
+             <tr *ngIf="!!merchantData.created_timestamp">
+                <th scope="row">Created At:</th>
+                <td>{{merchantData?.created_timestamp | date: 'medium'}}</td>
+             </tr>
+          </tbody>
+       </table>
+      </div>
+   </div>
+</div>
+</div>

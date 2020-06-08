@@ -1,0 +1,143 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="row row-30 m-auto">
+         <div class="col-md-3 px-4 py-3">
+            <h3>Incentive Model</h3>
+            <p class="text-primary m-0">
+               <span class="text-secondary">Incentive Model</span>
+            </p>
+         </div>
+         <div class="col d-flex justify-content-end align-items-center h-auto">
+            <div class="d-flex mx-1" *ngIf="pages && !!pages.perPage">
+               <span class="px-1 m-auto font-weight-bold">Size: </span>
+               <ng-select [items]="rowLimits"
+               bindLabel="name"
+               [clearable]="false"
+               [(ngModel)]="pages.perPage"
+               (ngModelChange)="changeRowLimits($event)"
+               >
+               </ng-select>
+            </div>
+            <button class="btn wms_btn_link p-2 mx-2" (click)="getIncentiveListingData()">
+               <i class="fa fa-refresh" aria-hidden="true"></i>
+               Refresh
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" [routerLink]="['/incentives/incentive']" [queryParams]="{ type: 'add'}">
+               <i class="fa fa-plus" aria-hidden="true"></i>
+               Add New Incentive Model
+            </button>
+         </div>
+      </div>
+   </div>
+   <div *ngIf="!!rows">
+      <ngx-datatable 
+      class="material"
+      [rows]="rows"
+      [columnMode]="ColumnMode.force" 
+      [headerHeight]="50" 
+      [footerHeight]="50"
+      rowHeight="auto"
+      [externalPaging]="true"
+      [count]="pages.totalEntries"
+      [offset]="pages.currentPage"
+      [limit]="pages.perPage"
+      (page)="setPage($event)"
+      >
+      <ngx-datatable-column name="Id" prop="id" [sortable]="false" [width]="100"></ngx-datatable-column>
+      <ngx-datatable-column name="Name" prop="name" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Incentive Type" prop="type" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Amount" prop="target_amount" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="No of assigned agent" prop="agent_count" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Actions" prop="product_id" [width]="240" [sortable]="false">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+         <!-- {{value}} {{row}} -->
+         <span class="mx-1 "></span>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="viewIncentive(row)" data-toggle="tooltip" data-placement="bottom" title="View Incentive"><i class="fa fa-eye"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editIncentive(row)" data-toggle="tooltip" data-placement="bottom" title="Edit Incentive"><i class="fa fa-edit"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="assignAgent(row)" data-toggle="tooltip" data-placement="bottom" title="Assign Agent" data-toggle="modal" data-target="#assignAgentModal"><i class="fa fa-user-plus"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="deleteIncentive(row)" data-toggle="tooltip" data-placement="bottom" title="Delete Incentive"><i class="fa fa-trash"></i></button>
+      </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-footer *ngIf="!!pages.totalEntries">
+         <ng-template
+            ngx-datatable-footer-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-count="totalEntries"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset"
+            >
+            <div class="w-25" style="padding: 5px 10px">
+               <div> Showing {{((curPage - 1) * pageSize) + 1 }} - {{pageSize > rowCount ? rowCount : ((pageSize * curPage) > rowCount ? rowCount : pageSize * curPage)}} products of {{rowCount}} products </div>
+            </div>
+            <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-icon-left'"
+            [pagerRightArrowIcon]="'datatable-icon-right'"
+            [pagerPreviousIcon]="'datatable-icon-prev'"
+            [pagerNextIcon]="'datatable-icon-skip'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!((rowCount / pageSize) > 1)"
+            (change)="setPage($event)">
+            </datatable-pager>
+         </ng-template>
+      </ngx-datatable-footer>
+      </ngx-datatable>
+   </div>
+</div>
+<!-- Below Model is used for Assign Incentive Model -->
+<div class="modal bd-example-modal-lg" 
+   id="assignAgentModal" 
+   data-backdrop="static" 
+   tabindex="-1" 
+   role="dialog" 
+   aria-labelledby="staticBackdropLabel" 
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" *ngIf="!!assignAgentForm">
+         <form [formGroup]="assignAgentForm"  #assignAgent="ngForm" (ngSubmit)="saveAgentAssign(assignAgent)">
+         <div class="modal-header">
+            <h3 class="modal-title" id="staticBackdropLabel">Assign Agent</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body insowa_inventory_form">
+            <div class="form-row my-2">
+               <div class="col-6 pr-1" *ngIf="!!agentList && agentList.length !== 0; else noAgentData">
+                  <div class="form-group required m-0">
+                     <label class="control-label">Agent Listing</label>
+                     <ng-select [items]="agentList"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     bindValue="id"
+                     name="agent_id"
+                     formControlName="agent_id"
+                     [multiple] ="false"
+                     class="custom"
+                     placeholder="Select Agent"
+                     >
+                     </ng-select> 
+                  </div>
+                  <div class="d-flex justify-content-end py-1" >
+                     <span class="text-danger" *ngIf="checkAssignAgentFormValidation !== undefined && checkAssignAgentFormValidation !== null && checkAssignAgentFormValidation === true && assignAgentForm.get('incentive_id').hasError('required')">Please fill out this field.</span> 
+                  </div>
+               </div>
+               <ng-template #noAgentData>
+                  <p>
+                     No Agent To Display
+                  </p>
+               </ng-template>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" *ngIf="!!agentList && agentList.length !== 0" class="btn wms_btn_primary">Assign Agent</button>
+            <button type="button" class="btn wms_btn_secondary" data-dismiss="modal" #closeAgentAssignModal>Close</button>
+         </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- End of the Above code -->

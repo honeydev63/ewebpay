@@ -1,0 +1,21 @@
+@import 'src/assets/scss/epharma';
+.wrapper, .row-offcanvas {
+    height: 100%;
+    margin-left:0;
+    margin-right:0;
+    background-color: #f2f2f2;
+ }
+ .wrapper:before, .wrapper:after,
+ .column:before, .column:after {
+     content: "";
+     display: table;
+ }
+ 
+ .wrapper:after,
+ .column:after {
+     clear: both;
+ }
+ .shipmed-layout-container {
+    background-color: #f2f2f2;
+     padding: 1rem 2rem 2rem 5rem !important;
+ }

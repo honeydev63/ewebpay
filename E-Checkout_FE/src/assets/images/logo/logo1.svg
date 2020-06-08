@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="125.122" height="73.034" viewBox="0 0 125.122 73.034">
+  <g id="Group_2" data-name="Group 2" transform="translate(-1076 -196)">
+    <g id="Group_1" data-name="Group 1" transform="translate(1076 196)">
+      <text id="trip" transform="translate(0 35)" fill="#fff" font-size="36" font-family="Cabin-Regular, Cabin"><tspan x="0" y="0">trip</tspan></text>
+      <text id="drive_" data-name="drive " transform="translate(46.122 52.227)" fill="#363636" font-size="34" font-family="Cabin-Regular, Cabin"><tspan x="0" y="0">drive </tspan></text>
+      <path id="Path_1" data-name="Path 1" d="M281.627,412.335a11.268,11.268,0,0,1,11.255,11.255v6.671h3.335V423.59a14.581,14.581,0,0,0-29-2.2h3.369A11.272,11.272,0,0,1,281.627,412.335Z" transform="translate(-230.471 -405.999)" fill="#fff"/>
+      <path id="Path_2" data-name="Path 2" d="M292.658,476.338a11.25,11.25,0,0,1-22.323-2v-5.8H267v5.8a14.582,14.582,0,0,0,29.028,2Z" transform="translate(-230.434 -415.899)" fill="#363636"/>
+    </g>
+  </g>
+</svg>

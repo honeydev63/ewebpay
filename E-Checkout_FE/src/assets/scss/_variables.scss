@@ -1,0 +1,79 @@
+// defining the fonts
+@font-face {
+    font-family: 'Poppins';
+    font-style: regular;
+    font-weight: 400;
+    src: url('src/assets/fonts/poppins-regular.ttf');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: medium;
+    font-weight: 600;
+    src: url('src/assets/fonts/poppins-medium.ttf');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: bold;
+    font-weight: 700;
+    src: url('src/assets/fonts/poppins-bold.ttf');
+}
+$font-family-base: "Poppins", sans-serif !default;
+body{
+    font-family: "Poppins" !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+}
+// end of the above code
+$white: #FFFFFF;
+$primary-blue: #263c7a;
+$primary-grey: #49576c;
+$light-grey: #d2d2d2;
+$primary-dark-grey: #d0d0d0;
+$primary-light-blue: #0029fa;
+$float-right: right;
+$primary-green: #00AF3B;
+$primary-red: #E23333;
+$primary-black: #272264;
+$primary-yellow: #ffcc33;
+$primary-orange: #FEB041;
+// end of the above section
+// defining secondary colors
+// $secondary-blue-100: #356388;
+// $secondary-blue-50: #5582B0;
+// $secondary-blue-0: #92C5eb;
+// $secondary-green-100: #76ECD9;
+// $secondary-green-50: #ABE1FA;
+// $secondary-green-0: #E3F3F1;
+// $secondary-red-100: #F15B5B;
+// $secondary-red-50: #F48580;
+// $secondary-red-0: #F8ABAD;
+// $secondary-grey-100: #737373;
+// $secondary-grey-50: #B3B3B3;
+// $secondary-grey-0: #EBEBEB;
+// end of the above section
+// defining size variable
+$base-font-size: 0.85rem; // 14pxsss
+$base-font-size-sm: 0.75rem;  // 10.5px
+$base-font-size-xs: 0.6rem;  // 8.4px
+$base-font-size-md: 1.14rem;  // 14px
+$base-font-size-lg: 1.28rem; // 15.95px
+$base-font-size-xlg: 1.42rem;  // 19.88px
+$small-font-size: 0.85rem; // 11.9px
+$unit-px: 0.07rem; // 1px;
+// end of the above section
+// defining social media colors
+$facebook-color: #243967;
+$google-plus-color: #D12E29;
+$twitter-color: #2B8AB6;
+$primary-border-radius: 0.3rem;
+$primary-border: 0.1rem solid $primary-grey;
+$secondary-border-radius: 0.4rem;
+$primary-box-shadow: 0 0 10px 0 #d8d8d8;
+$resize : none;
+$table-background : #f2f2f2;
+$box-shadow-none: none;
+
+
+
+
+

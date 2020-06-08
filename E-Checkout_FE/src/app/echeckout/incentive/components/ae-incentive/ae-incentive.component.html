@@ -1,0 +1,71 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card w-100">
+         <div class="card-header">
+            <div class="row row-30 m-auto">
+               <div class="col-md-12 p-0">
+                  <h5 class="text-capitalize pt-2" *ngIf="!!UserFormType && UserFormType !== ''">{{UserFormType}} <span *ngIf="UserFormType === 'add'">new</span> Incentive Model</h5>
+                  <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                     <span *ngIf="UserFormType === 'add'">Add New Incentive Model</span>
+                     <span *ngIf="UserFormType !== 'add'">Edit Incentive Model</span>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="card-body d-flex wms_inventory_form">
+            <div class="col-12 p-0" *ngIf="!!incentiveDetailsForm">
+               <form class="form-signin" [formGroup]="incentiveDetailsForm" #incentiveDetails="ngForm" (ngSubmit)="saveIncentiveDetails(incentiveDetails)">
+               <div class="row">
+                  <div class="col-12" *ngIf="!!incentiveDetailsForm">
+                    <div class="form-row" *ngIf="!(UserFormType === 'add')">
+                       <div class="col-4 form-group required">
+                          <label class="control-label">Incentive Model ID</label>
+                          <input type="text" class="form-control" placeholder="Incentive model ID" name="incentive_id" formControlName="incentive_id" disabled>
+                       </div>
+                    </div>
+                     <div class="form-row">
+                        <div class="col-4 form-group required">
+                           <label class="control-label">Incentive Model Name</label>
+                           <input type="text" class="form-control" placeholder="Incentive model Name" name="name" formControlName="name">
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && incentiveDetailsForm.get('name').hasError('required')">Please fill out this field.</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required" *ngIf="!!incentiveModelType && incentiveModelType.length !== 0">
+                           <label class="control-label">Incentive Model type</label>
+                           <ng-select [items]="incentiveModelType"
+                              [hideSelected]="true"
+                              bindLabel="name"
+                              bindValue="id"
+                              name="type"
+                              formControlName="type"
+                              [multiple] ="false"
+                              class="custom"
+                              placeholder="Select Incentive Model Type"
+                              >
+                           </ng-select> 
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && incentiveDetailsForm.get('type').hasError('required')">Please fill out this field.</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="control-label">Incentive model Amount</label>
+                           <input type="text" class="form-control" placeholder="Incentive model Amount"  autofocus name="target_amount" formControlName="target_amount" >
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class="text-danger" *ngIf="checkAgentFormValidation !== undefined && checkAgentFormValidation !== null && checkAgentFormValidation === true && incentiveDetailsForm.get('target_amount').hasError('required')">Please fill out this field.</span>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+                  </div>
+               </div>
+               <div class="form-row m-0">
+                     <button class="btn wms_btn_primary mx-2 ml-auto" type="submit">Save</button>
+                     <button class="btn wms_btn_secondary" [routerLink]="['/incentives']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      </div>
+   </div>

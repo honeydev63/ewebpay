@@ -1,0 +1,10 @@
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma';
+#footer {
+    background-color: $primary-black;
+    color: $white;
+    p {
+        text-align: center;
+        font-size: $base-font-size;
+    }
+}

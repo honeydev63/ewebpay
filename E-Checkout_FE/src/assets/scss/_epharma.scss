@@ -1,0 +1,449 @@
+@import 'src/assets/scss/mixins';
+@import 'src/assets/scss/variables';
+
+.echeckout_size {
+  line-height: 2rem;
+}
+.tripdrive_login {
+  background-color: $primary-orange;
+  height: 100vh;
+  .tripdrive_login_banner {
+      background: url("src/assets/images/login/login-background.png") no-repeat;
+      background-size: cover;
+      background-position: center;
+      border-bottom-left-radius: $primary-border-radius;
+      border-top-left-radius: $primary-border-radius;
+  }
+  .tripdrive_login_form {
+      .card-title {
+          font-size: $base-font-size !important;
+      }
+      .input-group-text {
+        background-color: $white;
+        border-bottom: 0.08rem solid $primary-grey;
+        border-radius: 0;
+        border-top: 1px solid $white;
+        border-left: 1px solid $white;
+        border-right: 1px solid $white;
+      }
+    .form-group input, .form-label-group input {
+      border-radius: 0;
+      border: none;
+      border-bottom: 0.01rem solid $primary-grey;
+    }
+  }
+}
+.tripdrive_btn_primary {
+  background: $primary-orange;
+  font-size: $base-font-size;
+  color: $white;
+  i {
+    float: right;
+    line-height: 1.5;
+  }
+}
+.tripdrive_btn_primary:hover {
+  background: $primary-black;
+  color: $white;
+}
+// .form-group input, .form-label-group input {
+//   border-radius: 0;
+//   border: none;
+//   border-bottom: 0.01rem solid $primary-grey;
+// }
+.form-control:focus {
+  box-shadow: none;
+  outline: 0;
+}
+.tripdrive_rounded {
+  border-radius: $primary-border-radius;
+}
+.tripdrive_fluid_overall {
+  // background: linear-gradient(to bottom, $primary-orange 15%, #FFFFFF 0%);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 15rem;
+  background-color: $primary-orange;
+}
+.tripdrive_fluid {
+  padding: 3rem 0rem;
+}
+.tripdrive_container {
+  margin: 3rem 1rem 2rem 5rem;
+  border-radius: $secondary-border-radius;
+}
+.tripdrive_listing_header {
+  background: $light-grey;
+  // border-top-left-radius: $secondary-border-radius;
+  // border-top-right-radius: $secondary-border-radius;
+}
+.tripdrive_navbar {
+  background: $primary-orange;
+  .navbar-brand {
+    border-right: 1px solid $white;
+  }
+  .nav-item {
+    a {
+      color: $white;
+      font-weight: bold;
+    }
+  }
+}
+.ngx-datatable.material {
+  box-shadow: none;
+  border-bottom-left-radius: $secondary-border-radius;
+  border-bottom-right-radius: $secondary-border-radius;
+}
+.btn-light:hover {
+  background: $primary-orange;
+  color: $white;
+}
+// Helper Classes
+.cursor-pointer {
+  cursor: pointer !important;
+}
+// End of the Above SCSS
+.form-group.required .control-label:after {
+  content:"*";
+  color: $primary-red;
+}
+.error-message {
+  color: $primary-red;
+  font-size: $base-font-size-xs;
+}
+.bg-dark {
+  background-color: #5f5f5f !important;
+}
+.d-flex {
+    height: -webkit-fill-available;
+}
+.sidenav {
+    height: auto;
+    background-color: $primary-grey;
+}
+.card {
+    border: none;
+    .card-header {
+        p {
+            font-size: $base-font-size;
+        }
+    }
+    .card-body {
+        p {
+            font-size: $base-font-size;
+        }
+        .card-title {
+            font-weight: 300;
+            font-size: 1.5rem;
+          }
+          .custom-control {
+            font-size: 0.7rem;
+          }
+          .custom-control-label {
+            line-height: 2;
+        }
+          .btn-google {
+            color: white;
+            background-color: #ea4335;
+          }
+          .btn-facebook {
+            color: white;
+            background-color: #3b5998;
+          }
+      }
+      .card-footer {
+        background-color: #fff;
+        font-size: 0.8rem;
+      }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+/* Firefox */
+input[type=number] {
+-moz-appearance:textfield;
+}
+dp-date-picker {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: $white !important;
+  background-clip: padding-box;
+  border: none;
+  box-shadow: $primary-box-shadow;
+  border-radius: .25rem;
+  -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  .dp-input-container {
+      .dp-picker-input {
+          width: 100% !important;
+          margin: -4px !important;
+          border: none !important;
+      }
+  }
+}
+.wms_inventory_form, ng-select {
+  border: none !important;
+  box-shadow: $primary-box-shadow;
+  div.below, div.above {
+    margin: 0px !important;
+    width: 100% !important;
+    border: none !important;
+   // top: 0 !important;
+    left: 0 !important;
+    div.multiple {
+      width: 100% !important;
+      margin: -15px 0px;
+      input {
+        border-bottom: none !important;
+      }
+    }
+    div.single {
+      width: 100% !important;
+      margin: -15px 0px;
+    }
+  }
+}
+
+.wms_inventory_form {
+  // .form-control {
+  //     border-radius: $primary-border-radius;
+  //     box-shadow: $primary-box-shadow;
+  //     padding: 1.2rem 0.8rem;
+  //   }
+    .wms_upload_card {
+        .media {
+            margin: auto;
+            background: $primary-grey;
+            padding: 2rem;
+            border-radius: 50%;
+            img {
+                width: 5rem;
+                height: 5rem;
+            }
+        }
+        .choose_file {
+          position: relative;
+      }
+      .choose_file input[type="file"]{
+          -webkit-appearance:none; 
+          position:absolute;
+          opacity:0;
+          top: 5%;
+          height: 100%;
+          width: 50%;
+          right: 0;
+          left: 25%;
+      }
+    }
+    textarea {
+        resize: none;
+    }
+}
+.wms_btn_primary {
+  background: $primary-orange;
+  color: $white;
+  border-radius: $primary-border-radius;
+  box-shadow: $primary-box-shadow;
+  i {
+      float: right;
+      line-height: 1.5;    
+  }
+}
+.wms_btn_primary:hover {
+  background: $primary-blue;
+  color: $white;
+}
+.wms_inventory_form {
+  .btn-group-toggle {
+    .btn-light {
+      color: $primary-black;
+      background-color: $white;
+      border: $primary-border;
+    }
+    .btn-light:not(:disabled):not(.disabled).active, .btn-light:not(:disabled):not(.disabled):active, .show>.btn-light.dropdown-toggle {
+      background: $primary-blue;
+      color: $white;
+    }
+  }
+}
+.btn-manual {
+  background: $primary-blue;
+  border-radius: $primary-border-radius;
+  color: $white;
+  font-size: $base-font-size;
+}
+.btn-manual:hover {
+  color: $primary-blue;
+  background: transparent;
+}
+.wms_btn_secondary {
+  font-size: $base-font-size;
+  background: $white;
+  border: 0.06rem solid $primary-orange;
+  color: $primary-orange;
+  border-radius: $primary-border-radius;
+  i {
+      float: right;
+      line-height: 1.5;    
+  }
+}
+.wms_btn_secondary:hover {
+  background: $primary-orange;
+  color: $white;
+  border: 0.06rem solid $primary-orange;
+}
+.search {
+  max-width: 292px;
+  border-right: none;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0);
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset
+}
+.btn {
+  border-radius: $secondary-border-radius;
+}
+.wms_btn_primary {
+  background: $primary-orange;
+  color: $white;
+  border-radius: $primary-border-radius;
+  box-shadow: $primary-box-shadow;
+  i {
+      float: right;
+      line-height: 1.5;    
+  }
+}
+.wms_btn_secondary {
+  background: $white;
+  border: 0.06rem solid $primary-orange;
+  color: $primary-orange;
+  border-radius: $primary-border-radius;
+  i {
+      float: right;
+      line-height: 1.5;    
+  }
+}
+.wms_upload_card {
+  .media {
+      margin: auto;
+      background: $primary-grey;
+      padding: 2rem;
+      border-radius: 50%;
+      img {
+          width: 5rem;
+          height: 5rem;
+      }
+  }
+  .choose_file {
+    position: relative;
+}
+.choose_file input[type="file"]{
+    -webkit-appearance:none; 
+    position:absolute;
+    opacity:0;
+    top: 5%;
+    height: 100%;
+    width: 50%;
+    right: 0;
+    left: 25%;
+}
+}
+textarea {
+  resize: none;
+}
+.wms_btn_link {
+  color: $primary-black;
+  font-size: $base-font-size;
+}
+.wms_btn_link:hover {
+  color: $primary-orange;
+}
+.btn.focus, .btn:focus {
+  box-shadow: none;
+}
+a {
+  color: $primary-black;
+}
+.wms_body_topnavigation {
+  .navbar-nav {
+    .nav-item {
+      .active {
+        color: $primary-orange;
+      }
+    }
+  }
+}
+.editing {
+  background: $primary-orange !important;
+    color: $white !important;
+}
+.adding {
+  background:  $white !important;
+    color: $primary-orange !important;
+}
+// End above css
+*::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+*::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: $primary-grey;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: $primary-dark-grey;
+}
+
+.echeckout_searchform {
+  position: relative;
+  .tab_dropdown_content {
+    position: absolute;
+    background-color: $white;
+    max-height: 200px;
+    height: auto;
+    overflow: auto;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    box-shadow: $primary-box-shadow;
+    z-index: 1;
+    border-radius: $primary-border-radius;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    p {
+      font-size: $base-font-size-sm;
+    }
+    .list-group {
+      font-size: $base-font-size-sm;
+      color: $primary-dark-grey;
+      .list-group-item {
+        border: none;
+        border-bottom: 2px solid #f2f2f2;
+        cursor: pointer;
+      }
+    }
+    .list-group-item:last-child {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .list-group-item:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}

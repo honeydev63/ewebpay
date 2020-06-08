@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="292.14" height="214" viewBox="0 0 292.14 214">
+  <g id="Group_2" data-name="Group 2" transform="translate(-469 -476)">
+    <g id="Group_1" data-name="Group 1" transform="translate(245.527 70.895)">
+      <text id="trip" transform="translate(223.473 488.105)" fill="#fd9846" font-size="86" font-family="Cabin-Regular, Cabin"><tspan x="0" y="0">trip</tspan></text>
+      <text id="drive_" data-name="drive " transform="translate(323.613 526.849)" fill="#fff" font-size="83" font-family="Cabin-Regular, Cabin"><tspan x="0" y="0">drive </tspan></text>
+      <path id="Path_1" data-name="Path 1" d="M298.5,416.241a24.465,24.465,0,0,1,24.437,24.437v14.485h7.241V440.678a31.657,31.657,0,0,0-62.956-4.772h7.315A24.474,24.474,0,0,1,298.5,416.241Z" transform="translate(36.044 2.62)" fill="#fd9846"/>
+      <path id="Path_2" data-name="Path 2" d="M322.708,485.472a24.426,24.426,0,0,1-48.468-4.332v-12.6H267v12.6a31.66,31.66,0,0,0,63.025,4.332Z" transform="translate(35.865 50.857)" fill="#fff"/>
+    </g>
+    <text id="Let_s_start_your_journey_with_us" data-name="Let’s start your journey with us" transform="translate(485 684)" fill="#fff" font-size="22" font-family="Cabin-Italic, Cabin" font-style="italic"><tspan x="0" y="0">Let’s start your journey with us</tspan></text>
+  </g>
+</svg>

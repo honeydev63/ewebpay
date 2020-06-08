@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma-toster';
+@import 'src/assets/scss/epharma';
+@import 'src/assets/scss/epharmaIcon';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #36363669 !important;
+  opacity: 1; /* Firefox */
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #36363669 !important;
+}
+
+input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #36363669 !important;
+}
+
+input {
+  &.form-control {
+    &[type="text"],
+    &[type="email"],
+    &[type="password"],
+    &[type="number"] {
+      border: 1px solid #dedede;
+      border-radius: 21px;
+      height: 42px;
+      object-fit: contain;
+      font-size: 1rem;
+      padding-left: 1.1rem;
+    }
+  }
+}
+
+form {
+  p {
+    &.section-title {
+      margin-top: 2rem;
+      font-size: 1.5rem !important;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      letter-spacing: normal;
+      color: #363636;
+    }
+  }
+  
+  button {
+    &.btn {
+      width: 187px;
+      height: 43px;
+      object-fit: contain;
+      border-radius: 10rem !important;
+    }
+  }
+}

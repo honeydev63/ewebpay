@@ -1,0 +1,64 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card w-100">
+         <div class="card-header">
+            <div class="row row-30 m-auto">
+               <div class="col-md-12 p-0">
+                  <h5 class="text-capitalize pt-2" *ngIf="!!UserFormType && UserFormType !== ''">{{UserFormType}} <span *ngIf="UserFormType === 'add'">new</span> Product</h5>
+                  <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                     <span *ngIf="UserFormType === 'add'">Add New Product</span>
+                     <span *ngIf="UserFormType !== 'add'">Edit Product</span>
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="card-body d-flex wms_inventory_form">
+            <div class="col-12" *ngIf="!!productDetailsForm">
+               <form class="form-signin" [formGroup]="productDetailsForm" #productDetails="ngForm" (ngSubmit)="saveProductDetails(productDetails)">
+               <div class="row">
+                  <div class="col-12" *ngIf="!!productDetailsForm">
+                     <div class="form-row" *ngIf="!(UserFormType === 'add')">
+                        <div class="col-4 form-group required">
+                           <label class="control-label">Product ID</label>
+                           <input type="text" class="form-control" placeholder="Product ID" name="product_id" formControlName="product_id" disabled>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-4 form-group required">
+                           <label class="control-label">Product Name</label>
+                           <input type="text" class="form-control" placeholder="Product Name" name="product_name" formControlName="product_name">
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class="text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('product_name').hasError('required')">Please fill out this field.</span>
+                              <span class="text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('product_name').hasError('maxlength')">Product name Can not exceed 100 characters</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required" *ngIf="!!UserFormType">
+                           <label class="control-label">Product Type</label>
+                           <input type="text" class="form-control" placeholder="Product Type" name="product_type" formControlName="product_type">
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class="text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('product_type').hasError('product_type')">Please fill out this field.</span>
+                              <span class=" text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('product_type').hasError('product_type')"> Can not exceed 100 characters</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="control-label">Price</label>
+                           <input type="text" class="form-control" placeholder="Price"  autofocus name="price" formControlName="price" >
+                           <div class="d-flex justify-content-end mb-1 py-1">
+                              <span class=" text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('price').hasError('min')"> Can not be less than zero.</span>
+                              <span class=" text-danger" *ngIf="checkProductFormValidation !== undefined && checkProductFormValidation !== null && checkProductFormValidation === true && productDetailsForm.get('price').hasError('pattern')"> Please enter valid amount</span>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="row float-right">
+                        <button class="btn wms_btn_primary mx-2" type="submit">Save</button>
+                        <button class="btn wms_btn_secondary" [routerLink]="['/products']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                     </div>
+                  </div>
+               </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,227 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="row row-30 m-auto">
+         <div class="col-md-3 px-4 py-3">
+            <h3>Sales Agent</h3>
+            <p class="text-primary m-0">
+               <span class="text-secondary">Sales Agent</span>
+            </p>
+         </div>
+         <div class="col d-flex justify-content-end align-items-center h-auto px-0">
+            <div class="d-flex mx-1" *ngIf="pages && !!pages.perPage">
+               <span class="px-1 m-auto font-weight-bold">Size: </span>
+               <ng-select [items]="rowLimits"
+               bindLabel="name"
+               [clearable]="false"
+               [(ngModel)]="pages.perPage"
+               (ngModelChange)="changeRowLimits($event)"
+               >
+               </ng-select>
+            </div>
+            <div class="w-25">
+               <form [formGroup]="searchForm">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search here..." formControlName="search" name="search">
+                     <div class="input-group-append ">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <button class="btn wms_btn_link p-2 mx-2" (click)="getSalesAgentListingData()">
+               <i class="fa fa-refresh" aria-hidden="true"></i>
+               Refresh
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" type="button" (click)="exportFile()">
+               <i class="fa fa-exchange" aria-hidden="true"></i>
+               Export
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2"[routerLink]="['/incentives']" [queryParams]="{ perPage: 50, currentPage: 1}">
+               <i class="fa fa-dollar" aria-hidden="true"></i>
+               Incentive Model
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" [routerLink]="['/sales-agent/agent']" [queryParams]="{ type: 'add'}">
+               <i class="fa fa-plus" aria-hidden="true"></i>
+               Add New Sales Agent
+            </button>
+         </div>
+      </div>
+   </div>
+   <div *ngIf="!!rows">
+      <ngx-datatable 
+      class="material"
+      [rows]="rows"
+      [columnMode]="ColumnMode.force" 
+      [headerHeight]="50" 
+      [footerHeight]="50"
+      rowHeight="auto"
+      [externalPaging]="true"
+      [count]="pages.totalEntries"
+      [offset]="pages.currentPage"
+      [limit]="pages.perPage"
+      (page)="setPage($event)"
+      >
+      <ngx-datatable-column name="Id" prop="agent_id" [width]="100" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Name" prop="agent_name" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Mobile No." prop="mobile" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Email" prop="email" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Incentive - Target" prop="product_id" [sortable]="false">
+         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <!-- {{value}} {{row}} -->
+            <div *ngIf="row.incentive_data.length !== 0">
+               <div *ngFor="let item of row.incentive_data">
+                  <span>{{item.incentive.type}} - {{item.incentive.target_amount}}</span>
+               </div>
+            </div>
+         </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Revenue" prop="revenue" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Attendence" prop="attendence" [sortable]="false">
+         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.is_present === true ? 'P' : 'A'}}
+         </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions" prop="product_id" [width]="300" [sortable]="false">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+         <!-- {{value}} {{row}} -->
+         <span class="mx-1 "></span>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="viewAgent(row)" data-toggle="tooltip" data-placement="bottom" title="View Agent"><i class="fa fa-eye"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="resetAgentPassword(row)" data-toggle="tooltip" data-placement="bottom" title="Reset Password"><i class="fa fa-refresh"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editSalesAgent(row)" data-toggle="tooltip" data-placement="bottom" title="Edit Agent"><i class="fa fa-edit"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" *ngIf="row.incentive_data.length < 2" (click)="openIncentiveModel(row)" data-toggle="tooltip" data-placement="bottom" title="Assign Incentive" data-toggle="modal" data-target="#assignIncentiveModal"><i class="fa fa-user-plus"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" *ngIf="row.incentive_data.length > 0" (click)="openRemoveIncentiveModel(row)" data-toggle="tooltip" data-placement="bottom" title="Remove Incentive Model" data-toggle="modal" data-target="#removeIncentiveModal"><i class="fa fa-ban"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="deleteAgent(row)" data-toggle="tooltip" data-placement="bottom" title="Delete Agent"><i class="fa fa-trash"></i></button>
+      </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-footer *ngIf="!!pages.totalEntries">
+         <ng-template
+            ngx-datatable-footer-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-count="totalEntries"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset"
+            >
+            <div class="w-25" style="padding: 5px 10px">
+               <div> Showing {{((curPage - 1) * pageSize) + 1 }} - {{pageSize > rowCount ? rowCount : ((pageSize * curPage) > rowCount ? rowCount : pageSize * curPage)}} products of {{rowCount}} products </div>
+            </div>
+            <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-icon-left'"
+            [pagerRightArrowIcon]="'datatable-icon-right'"
+            [pagerPreviousIcon]="'datatable-icon-prev'"
+            [pagerNextIcon]="'datatable-icon-skip'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!((rowCount / pageSize) > 1)"
+            (change)="setPage($event)">
+            </datatable-pager>
+         </ng-template>
+      </ngx-datatable-footer>
+      </ngx-datatable>
+   </div>
+</div>
+<!-- Below Model is used for Assign Incentive Model -->
+<div class="modal bd-example-modal-lg" 
+   id="assignIncentiveModal" 
+   data-backdrop="static" 
+   tabindex="-1" 
+   role="dialog" 
+   aria-labelledby="staticBackdropLabel" 
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" *ngIf="!!assignIncentiveForm">
+         <form [formGroup]="assignIncentiveForm"  #assignIncentive="ngForm" (ngSubmit)="saveIncentiveAssign(assignIncentive)">
+         <div class="modal-header">
+            <h3 class="modal-title" id="staticBackdropLabel">Assign Incentive Model</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body insowa_inventory_form">
+            <div class="form-row my-2">
+               <div class="col-6 pr-1" *ngIf="!!incentiveList && incentiveList.length !== 0; else noIncentiveData">
+                  <div class="form-group required m-0">
+                     <label class="control-label">Incentive Model</label>
+                     <ng-select [items]="incentiveList"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     bindValue="id"
+                     name="incentive_id"
+                     formControlName="incentive_id"
+                     [multiple] ="false"
+                     class="custom"
+                     placeholder="Select Incentive"
+                     >
+                     </ng-select> 
+                  </div>
+                  <div class="d-flex justify-content-end py-1" >
+                     <span class="text-danger" *ngIf="checkAssignIncentiveFormValidation !== undefined && checkAssignIncentiveFormValidation !== null && checkAssignIncentiveFormValidation === true && assignIncentiveForm.get('incentive_id').hasError('required')">Please fill out this field.</span> 
+                  </div>
+               </div>
+               <ng-template #noIncentiveData>
+                  <p>
+                     No Incentive Model To Display
+                  </p>
+               </ng-template>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="btn wms_btn_primary">Assign Incentive Model</button>
+            <button type="button" class="btn wms_btn_secondary" data-dismiss="modal" #closeIncentiveAssignModal>Close</button>
+         </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- End of the Above code -->
+<!-- Below Model is used for Remove Incentive Model -->
+<div class="modal bd-example-modal-lg" 
+   id="removeIncentiveModal" 
+   data-backdrop="static" 
+   tabindex="-1" 
+   role="dialog" 
+   aria-labelledby="staticBackdropLabel" 
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" *ngIf="!!removeIncentiveForm">
+         <form [formGroup]="removeIncentiveForm"  #removeIncentive="ngForm" (ngSubmit)="saveRemoveIncentiveModel(removeIncentive)">
+         <div class="modal-header">
+            <h3 class="modal-title" id="staticBackdropLabel">Remove Assigned Incentive Model</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body insowa_inventory_form">
+            <div class="form-row my-2">
+               <div class="col-6 pr-1" *ngIf="!!assignedIncentiveListData && assignedIncentiveListData.length !== 0">
+                  <div class="form-group required m-0">
+                     <label class="control-label">Incentive Model</label>
+                     <ng-select [items]="assignedIncentiveListData"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     bindValue="id"
+                     name="incentive_id"
+                     formControlName="incentive_id"
+                     [multiple] ="false"
+                     class="custom"
+                     placeholder="Select Incentive"
+                     >
+                     </ng-select> 
+                  </div>
+                  <div class="d-flex justify-content-end py-1" >
+                     <span class="text-danger" *ngIf="checkRemoveIncentiveFormValidation !== undefined && checkRemoveIncentiveFormValidation !== null && checkRemoveIncentiveFormValidation === true && removeIncentiveForm.get('incentive_id').hasError('required')">Please fill out this field.</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="btn wms_btn_primary">Remove Incentive Model</button>
+            <button type="button" class="btn wms_btn_secondary" data-dismiss="modal" #closeIncentiveRemoveModal>Close</button>
+         </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- End of the Above code -->

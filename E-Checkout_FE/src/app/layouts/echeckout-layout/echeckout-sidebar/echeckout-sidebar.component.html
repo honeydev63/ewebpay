@@ -1,0 +1,220 @@
+<div class="sidebar">
+   <div class="content">
+      <div class="sidebar_btns">
+         <button class="openbtn m-2" (click)="showSidebar()" *ngIf="!displaySidebar">☰</button>
+         <button class="openbtn m-1" (click)="showSidebar()" *ngIf="displaySidebar">☰</button>
+      </div>
+      <!-- Sidebar for the Admin -->
+      <div *ngIf="localUserRole === userRole.admin">
+         <div class="sm-sidebar" *ngIf="!displaySidebar">
+            <ul class="nav flex-column">
+               <!-- <li class="nav-item">
+                  <a class="nav-link">
+                  <img class="img-fluid" src="assets/images/product/dashboard.svg" alt="Dashboard">
+                  </a>
+               </li> -->
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/products']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="product" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/sales-agent']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="agent" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/sales-orders']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/customers']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="customer" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/merchants']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="merchant" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/work-order']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="work_order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" id="echeckout_qa" data-toggle="collapse" data-target="#filter-panel1"></a>
+               </li>
+               <ul class="collapse subnav_list" id="filter-panel1">
+                  <!-- <li class="nav-item">
+                     <a class="nav-link" [routerLink]="['/qa/qa-dashboard']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users"></i></a>
+                  </li> -->
+                  <li class="nav-item">
+                     <a class="nav-link" [routerLink]="['/qa']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-line-chart"></i></a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" [routerLink]="['/qa/orders-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-inr"></i></a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" [routerLink]="['/qa/suspicious-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users"></i></a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" [routerLink]="['/qa/flaged-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-list"></i></a>
+                  </li>
+               </ul>
+            </ul>
+         </div>
+         <div class="lg-sidebar" *ngIf="displaySidebar">
+            <div class="sidebar-sticky">
+               <ul class="nav flex-column px-2">
+                  <!-- <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="dashboard">Dashboard</a>
+                  </li> -->
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="product" [routerLink]="['/products']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Products
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="order" [routerLink]="['/sales-agent']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Sales Agent
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="echeckout_qa"  data-toggle="collapse" data-target="#sales-order-panel">Sales Orders</a>
+                  </li>
+                  <ul class="collapse subnav_list" id="sales-order-panel">
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Sales Order Listing</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sales-orders/suspicious-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Suspicious Order Listing</a>
+                     </li>
+                  </ul>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="customer" [routerLink]="['/customers']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Customers
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="merchant" [routerLink]="['/merchants']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Merchants
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="work_order" [routerLink]="['/work-order']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Work Orders
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="echeckout_qa"  data-toggle="collapse" data-target="#filter-panel1">QA</a>
+                  </li>
+                  <ul class="collapse subnav_list" id="filter-panel1">
+                     <!-- <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/qa/qa-dashboard']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;QA Dashboard</a>
+                     </li> -->
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/qa']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;QA Agent Listing</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/qa/orders-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;QA Order Listing</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/qa/suscpicious-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;QA Suspicious Listing</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/qa/resolved-order-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;QA Resolved Listing</a>
+                     </li>
+                  </ul>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- Sidebar for the Agent -->
+      <div *ngIf="localUserRole === userRole.agent">
+         <div class="sm-sidebar" *ngIf="!displaySidebar">
+            <ul class="nav flex-column">
+               <!-- <li class="nav-item">
+                  <a class="nav-link">
+                     <img class="img-fluid" src="assets/images/product/dashboard.svg" alt="Dashboard">
+                  </a>
+               </li> -->
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/products']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="product" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/customers']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="customer" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/merchants']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="merchant" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/sales-orders']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="agent" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/work-order']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="work_order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+            </ul>
+         </div>
+         <div class="lg-sidebar" *ngIf="displaySidebar">
+            <div class="sidebar-sticky">
+               <ul class="nav flex-column px-2">
+                  <!-- <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="dashboard">Dashboard</a>
+                  </li> -->
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="product" [routerLink]="['/products']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Products
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="customer" [routerLink]="['/customers']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Customers
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="merchant" [routerLink]="['/merchants']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Merchants
+                     </a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="echeckout_qa"  data-toggle="collapse" data-target="#filter-panel1">Sales Orders</a>
+                  </li>
+                  <ul class="collapse subnav_list" id="filter-panel1">
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Sales Order Listing</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sales-orders/suspicious-listing']" [queryParams]="{ perPage: 50, currentPage: 1}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Suspicious Order Listing</a>
+                     </li>
+                  </ul>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="work_order" [routerLink]="['/work-order']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" [queryParams]="{ perPage: 50, currentPage: 1}">Work Orders
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- Sidebar for the QA -->
+      <div *ngIf="localUserRole === userRole.qa">
+         <div class="sm-sidebar" *ngIf="!displaySidebar">
+            <ul class="nav flex-column">
+               <!-- <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/qa/qa-dashboard']" [queryParams]="{ perPage: 50, currentPage: 1}">
+                     <img class="img-fluid" src="assets/images/product/dashboard.svg" alt="Dashboard">
+                  </a>
+               </li> -->
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/qa/orders-listing']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/qa/suscpicious-listing']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+               <li class="nav-item p-3">
+                  <a class="nav-link" [routerLink]="['/qa/resolved-order-listing']"  routerLinkActive="active" routerLinkActiveOptions="{exact:true}" id="order" [queryParams]="{ perPage: 50, currentPage: 1}"></a>
+               </li>
+            </ul>
+         </div>
+         <div class="lg-sidebar" *ngIf="displaySidebar">
+            <div class="sidebar-sticky">
+               <ul class="nav flex-column px-2">
+                  <!-- <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="dashboard" [routerLink]="['/qa/qa-dashboard']">Dashboard</a>
+                  </li> -->
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="order" [routerLink]="['/qa/orders-listing']" [queryParams]="{ perPage: 50, currentPage: 1}">QA Order Listing</a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="order" [routerLink]="['/qa/suscpicious-listing']" [queryParams]="{ perPage: 50, currentPage: 1}">QA Suspicious Listing</a>
+                  </li>
+                  <li class="nav-item text-center py-2">
+                     <a class="nav-link" id="order" [routerLink]="['/qa/resolved-order-listing']" [queryParams]="{ perPage: 50, currentPage: 1}">QA Resolved Listing</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,311 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card">
+         <div class="card-header">
+            <div class="row row-30 m-auto">
+               <h5 class="m-0 text-capitalize" >Checkout using Card</h5>
+            </div>
+         </div>
+         <div class="card-body wms_inventory_form">
+            <div class="row">
+               <div class="col-4" *ngIf="!!customerList && customerList.length !== 0">
+                  <div class="form-group">
+                     <Label>Customer</Label>
+                     <ng-select [items]="customerList"
+                     [addTag]="addTagFn"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     [clearable] = "false"
+                     placeholder="Select Customer"
+                     addTagText="Add Customer With Mobile Number: "
+                     [(ngModel)]="staticObj.customerSelect"
+                     (ngModelChange)="onCustormerSelect(staticObj.customerSelect)"
+                     >
+                     </ng-select>
+                  </div>
+               </div>
+               <div class="col-4" *ngIf="!!customerList && customerList.length === 0">
+                  <div class="form-group">
+                     <Label>Customer</Label>
+                     <ng-select [items]="customerList"
+                     [addTag]="addTagFn"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     placeholder="Select Customer"
+                     addTagText="Add Customer With Mobile Number: "
+                     [(ngModel)]="staticObj.customerSelect"
+                     (ngModelChange)="onCustormerSelect(staticObj.customerSelect)"
+                     >
+                     </ng-select>
+                  </div>
+               </div>
+            </div>
+           <div class="row">
+               <div class="col-12" *ngIf="!!CardCheckoutForm">
+                  <form class="form-signin" [formGroup]="CardCheckoutForm" #checkoutBackDetails="ngForm"  (ngSubmit)="saveDetails(checkoutBackDetails)">
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">Mobile Number</label>
+                        <input type="tel" class="form-control" placeholder="Mobile Number" formControlName="mobile"  name="mobile">
+                       <div class="d-flex justify-content-end mb-1 pb-1">
+                        <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('mobile').hasError('required')">Please fill out this field.</span>
+                        <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('mobile').hasError('pattern')">Invalid Mobile Number</span>
+                        <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.mobile && !!customerFormData.mobile.status && customerFormData.mobile.status === false">{{customerFormData.mobile.message}}</span>
+                     </div>
+                     </div>
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="Name"  name="first_name" formControlName="first_name" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('first_name').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('first_name').hasError('pattern')">Invalid First Name</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('first_name').hasError('maxlength')">First Name cant exceed 120 characters</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.first_name && !!customerFormData.first_name.status && customerFormData.first_name.status === false">{{customerFormData.first_name.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group">
+                        <label class="control-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Name"  name="last_name" formControlName="last_name" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('last_name').hasError('pattern')">Invalid Last Name</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('last_name').hasError('maxlength')">First Name cant exceed 120 characters</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.last_name && !!customerFormData.last_name.status && customerFormData.last_name.status === false">{{customerFormData.last_name.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">Email</label>
+                        <input type="text" class="form-control" placeholder="Email ID" formControlName="email"  name="email">
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('email').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('email').hasError('email')">Invalid Email ID</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.email && !!customerFormData.email.status && customerFormData.email.status === false">{{customerFormData.email.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">ZIP Code</label>
+                        <input type="text" class="form-control" placeholder="ZIP Code" name="zip_code"  formControlName="zip_code" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('zip_code').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('zip_code').hasError('pattern')">Invalid Zip Code</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('zip_code').hasError('minlength')">Zip code cant exceed </span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('zip_code').hasError('maxlenght')">Invalid Zip Code</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.zip_code && !!customerFormData.zip_code.status && customerFormData.zip_code.status === false">{{customerFormData.zip_code.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">Country</label>
+                        <input type="text" class="form-control" placeholder="Country" name="country" formControlName="country" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('country').hasError('required') && checkOrderFormValidation === true">Please provide Country </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('country').hasError('pattern') && checkOrderFormValidation === true">Please provide valid Country </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('country').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.country && !!customerFormData.country.status && customerFormData.country.status === false">{{customerFormData.country.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">State</label>
+                        <input type="text" class="form-control" placeholder="State" name="state" formControlName="state" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('state').hasError('required') && checkOrderFormValidation === true">Please provide State </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('state').hasError('pattern') && checkOrderFormValidation === true">Please provide valid State </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('state').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.state && !!customerFormData.state.status && customerFormData.state.status === false">{{customerFormData.state.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required">
+                        <label class="d-block control-label">City</label>
+                        <input type="text" class="form-control" placeholder="City" name="city" formControlName="city" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('city').hasError('required') && checkOrderFormValidation === true">Please provide City </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('city').hasError('pattern') && checkOrderFormValidation === true">Please provide valid City </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('city').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.city && !!customerFormData.city.status && customerFormData.city.status === false">{{customerFormData.city.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div classs="">
+                     <h4>Billing Details</h4>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-6 form-group required" >
+                        <label class="d-block control-label">Address Line 1</label>
+                        <input type="text" class="form-control" placeholder="Address" name="address1"  formControlName="address1" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('address1').hasError('required') && checkOrderFormValidation === true">Please provide Billing Address </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('address1').hasError('maxlength') && checkOrderFormValidation === true">Address is too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.address1 && !!customerFormData.address1.status && customerFormData.address1.status === false">{{customerFormData.address1.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-6 form-group" >
+                        <label>Address Line 2</label>
+                        <input type="text" class="form-control" placeholder="Address" name="address2"  formControlName="address2" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('address2').hasError('maxlength') && checkOrderFormValidation === true">Address is too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.address2 && !!customerFormData.address2.status && customerFormData.address2.status === false">{{customerFormData.address2.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div classs="">
+                     <h4>Card Details</h4>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Card Number</label>
+                        <input type="text" class="form-control" placeholder="Card Number" name="card_number"  formControlName="card_number" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('card_number').hasError('required') && checkOrderFormValidation === true">Please provide Card Number </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('card_number').hasError('pattern') && checkOrderFormValidation === true">Invalid Card </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.card_number && !!customerFormData.card_number.status && customerFormData.card_number.status === false">{{customerFormData.card_number.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Expiry Date</label>
+                        <input type="text" class="form-control" placeholder="Expiry Date : XX/XX" name="expiry_date"  formControlName="expiry_date" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('expiry_date').hasError('required') && checkOrderFormValidation === true">Please provide expiry date </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('expiry_date').hasError('pattern') && checkOrderFormValidation === true">expiry date would be mm/yy </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.expiry_date && !!customerFormData.expiry_date.status && customerFormData.expiry_date.status === false">{{customerFormData.expiry_date.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">CVV</label>
+                        <input type="text" class="form-control" placeholder="CVV" name="cvv"  formControlName="cvv" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('expiry_date').hasError('required') && checkOrderFormValidation === true">Please provide expiry date </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('cvv').hasError('pattern') && checkOrderFormValidation === true">Invalid CVV</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.cvv && !!customerFormData.cvv.status && customerFormData.expiry_date.status === false">{{customerFormData.cvv.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div classs="">
+                     <h4>Shipping Details</h4>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping Mobile Number</label>
+                        <input type="text" class="form-control" placeholder="Shipping Mobile Number" name="s_mobile"  formControlName="s_mobile" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_mobile').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_mobile').hasError('pattern')">Invalid Mobile Number</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.first_name && !!customerFormData.first_name.status && customerFormData.mobile.status === false">{{customerFormData.s_mobile.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping Email</label>
+                        <input type="text" class="form-control" placeholder="Shipping Email" name="s_email"  formControlName="s_email" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_email').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_email').hasError('email')">Invalid Email ID</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.first_name && !!customerFormData.first_name.status && customerFormData.first_name.status === false">{{customerFormData.s_email.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping Address1</label>
+                        <input type="text" class="form-control" placeholder="Shipping Address1" name="s_address1"  formControlName="s_address1" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_address1').hasError('required') && checkOrderFormValidation === true">Please provide address1 </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_address1').hasError('maxlength') && checkOrderFormValidation === true">Address is too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.s_address1 && !!customerFormData.s_address1.status && customerFormData.s_address1.status === false">{{customerFormData.s_address1.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping Country</label>
+                        <input type="text" class="form-control" placeholder="Shipping Country" name="s_country"  formControlName="s_country" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_country').hasError('required') && checkOrderFormValidation === true">Please provide country </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_country').hasError('pattern') && checkOrderFormValidation === true">Please provide valid Country </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_country').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.s_country && !!customerFormData.s_country.status && customerFormData.s_country.status === false">{{customerFormData.s_country.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping State</label>
+                        <input type="text" class="form-control" placeholder="Shipping State" name="s_state"  formControlName="s_state" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_state').hasError('required') && checkOrderFormValidation === true">Please provide State </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_state').hasError('pattern') && checkOrderFormValidation === true">Please provide valid State </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_state').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.s_state && !!customerFormData.s_state.status && customerFormData.s_state.status === false">{{customerFormData.s_state.message}}</span>
+                        </div>
+                     </div>
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping City</label>
+                        <input type="text" class="form-control" placeholder="Shipping City" name="s_city"  formControlName="s_city" >
+                        <div class="d-flex justify-content-end mb-1 error-container">
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_city').hasError('required') && checkOrderFormValidation === true">Please provide City </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_city').hasError('pattern') && checkOrderFormValidation === true">Please provide valid City </span>
+                           <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('s_city').hasError('maxlength') && checkOrderFormValidation === true"> Too long </span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.s_state && !!customerFormData.s_city.status && customerFormData.s_city.status === false">{{customerFormData.s_city.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-row py-1">
+                     <div class="col-4 form-group required" >
+                        <label class="d-block control-label">Shipping Zip Code</label>
+                        <input type="text" class="form-control" placeholder="Shipping Zip Code" name="s_zip_code"  formControlName="s_zip_code" >
+                        <div class="d-flex justify-content-end mb-1 pb-1">
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_zip_code').hasError('required')">Please fill out this field.</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_zip_code').hasError('pattern')">Invalid Zip Code</span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_zip_code').hasError('minlength')">Zip code cant exceed </span>
+                           <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('s_zip_code').hasError('maxlenght')">Invalid Zip Code</span>
+                           <span class="text-danger error-message" *ngIf="!!customerFormData && !!customerFormData.first_name && !!customerFormData.first_name.status && customerFormData.mobile.status === false">{{customerFormData.s_zip_code.message}}</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div >
+                     <div classs="">
+                        <h4>Product Details</h4>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4" *ngIf="!!productList && productList.length !== 0">
+                           <div class="form-group required" >
+                              <Label class="d-block control-label">Product</Label>
+                              <ng-select [items]="productList"
+                              [hideSelected]="true"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeHolder="Select Product"
+                              name="product_id"
+                              formControlName="product_id"
+                              >
+                              </ng-select>
+                              <div class="d-flex justify-content-end mb-1 pb-1">
+                                 <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('product_id').hasError('required')">Please fill out this field.</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required" >
+                           <label class="d-block control-label">Quantity</label>
+                           <input type="text" class="form-control" placeholder="Quantity" name="quantity"  formControlName="quantity" >
+                           <div class="d-flex justify-content-end mb-1 pb-1">
+                              <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && CardCheckoutForm.get('quantity').hasError('required')">Please fill out this field.</span>
+                              <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('quantity').hasError('pattern') && checkOrderFormValidation === true">Invalid quantity</span>
+                              <span class="text-danger error-message" *ngIf="CardCheckoutForm.get('quantity').hasError('minlength') && checkOrderFormValidation === true">Quantity cannot be zero or lesser</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group" *ngIf="!!completeOrderData && !!completeOrderData.total_price">
+                           <label class="d-block control-label">Total Price</label>
+                           <input type="text" class="form-control" placeholder="Total Price" name="total_price" value="{{completeOrderData.total_price}}" disabled>
+                        </div>
+                        
+                     </div>  <button class="btn wms_btn_primary mr-2" type="button"   (click)="updateQuantity(completeOrderData)">Update Bill</button>
+                  </div>
+                  <hr>
+                  <div class="form-group text-right">
+                     <button class="btn wms_btn_primary mx-2" type="submit" >Save</button>
+                     <button class="btn wms_btn_secondary" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                  </div>
+                  </form>
+               </div>
+            </div> 
+         </div>
+      </div>
+   </div>
+</div>

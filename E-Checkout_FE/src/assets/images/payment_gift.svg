@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
+        </style>
+    </defs>
+    <g id="prefix__Group_638" data-name="Group 638" transform="translate(-185 -521)">
+        <rect id="prefix__Rectangle_357" width="23" height="23" data-name="Rectangle 357" rx="5" transform="translate(185 521)" style="fill:#363636"/>
+        <g id="prefix__Group_637" data-name="Group 637" transform="translate(.394 1)">
+            <g id="prefix__Icon_feather-gift" data-name="Icon feather-gift" transform="translate(187.606 523)">
+                <path id="prefix__Path_717" d="M15.215 18v5.759H6V18" class="prefix__cls-2" data-name="Path 717" transform="translate(-1.848 -9.241)"/>
+                <path id="prefix__Path_718" d="M3 10.5h11.519v2.88H3z" class="prefix__cls-2" data-name="Path 718" transform="translate(0 -4.62)"/>
+                <path id="prefix__Path_719" d="M18 19.139V10.5" class="prefix__cls-2" data-name="Path 719" transform="translate(-9.241 -4.62)"/>
+                <path id="prefix__Path_720" d="M11.532 5.88H8.94a1.44 1.44 0 1 1 0-2.88c2.016 0 2.592 2.88 2.592 2.88z" class="prefix__cls-2" data-name="Path 720" transform="translate(-2.772)"/>
+                <path id="prefix__Path_721" d="M18 5.88h2.592a1.44 1.44 0 0 0 0-2.88C18.576 3 18 5.88 18 5.88z" class="prefix__cls-2" data-name="Path 721" transform="translate(-9.241)"/>
+            </g>
+        </g>
+    </g>
+</svg>

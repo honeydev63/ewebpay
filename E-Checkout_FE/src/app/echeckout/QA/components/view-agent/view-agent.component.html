@@ -1,0 +1,51 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+       <div class="card w-100">
+          <div class="card-header">
+             <div class="row row-30 m-auto">
+                <div class="col-md-11 p-0">
+                   <h5 class="text-capitalize pt-2">QA Agent : <strong>{{agentData?.agent_name}}</strong></h5>
+                   <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                      <span class="cursor-pointer" [routerLink]="['/QA']"> QA Agent </span> / <span class="cursor-pointer">View QA Agent</span>
+                   </p>
+                </div>
+                <div class="col-md-1 p-0 text-right">
+                   <button class="btn wms_btn_secondary" (click)="viewAgentBack()">Back</button>
+                </div>
+             </div>
+          </div>
+          <div class="card-body p-4">
+             <p><b>QA Agent Details: </b></p>
+             <table class="table table-bordered" *ngIf="!!agentData; else noQAAgentData">
+                <tbody>
+                   <tr>
+                      <td>
+                         <p><b>Agent Id: </b></p>
+                         <p>{{agentData.agent_id === null ? 'NA' : agentData.agent_id}}</p>
+                      </td>
+                      <td>
+                         <p><b>Agent Name: </b></p>
+                         <p>{{agentData.agent_name === null ? 'NA' : agentData.agent_name}}</p>
+                      </td>
+                      <td>
+                         <p><b>Agent Mobile Number: </b></p>
+                         <p>{{agentData.mobile === null ? 'NA' : agentData.mobile}}</p>
+                      </td>
+                   </tr>
+                   <tr>
+                      <td>
+                         <p><b>Agent Email ID: </b></p>
+                         <p>{{agentData.email === null ? 'NA' : agentData.email}}</p>
+                      </td>
+                   </tr>
+                </tbody>
+             </table>
+             <ng-template #noQAAgentData>
+                <p>
+                   No Data To Display
+                </p>
+             </ng-template>
+          </div>
+       </div>
+    </div>
+ </div>

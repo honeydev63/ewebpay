@@ -1,0 +1,728 @@
+<nav class="navbar navbar-light navbar-expand-lg p-1 tripdrive_navbar">
+   <!-- <a class="navbar-brand cursor-pointer"> -->
+   <img src="assets/images/logo/logo1.jpg" width="150" height="60" class="d-inline-block align-top" alt="Logo" style = "margin-left:auto; margin-right:auto;">
+   <!-- </a> -->
+</nav>
+<div class="tripdrive_listing_header pt-5">
+   <div class="container-fluid">
+      <ng-template [ngIf]="!thankyouTemplate">
+         <div class="container py-5" *ngIf="!!orderDetails && orderDetails.is_order_exist === false">
+            <div class="jumbotron text-center">
+               <h1 class="display-5">User ID Not Found.</h1>
+               <p class="lead"><strong>Please check your email</strong> for further instructions.</p>
+               <hr>
+               <p>
+                  Having trouble? &nbsp; Please mail us at: <b>contact@ewebpay.com</b>
+               </p>
+            </div>
+         </div>
+         <div class="card insowa_usercheckout_card" *ngIf="!!orderDetails && orderDetails.is_order_exist === true">
+            <!-- <h5 class="card-header">Checkout</h5> -->
+
+            <div class="card-body">
+               <div class="row current_tab" >
+                  <div class = "person"> Personal Information</div>
+                  <div class = "product"> Product Details </div>
+                  <div class = "payment"> Payment Mode </div>
+               </div>
+               
+               <div class="row person_info" >
+                  <!-- <div class="col-md-4 order-md-2 mb-4">
+                     <h6 class="mb-3">Order Details</h6>
+                     <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Product ID</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.product_id}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Product Name</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.product_name}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Quantity</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.quantity}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between list-group-item-secondary">
+                           <span>Total Price (USD)</span>
+                           <strong>{{orderDetails?.detail?.total_price}}</strong>
+                        </li>
+                     </ul>
+                  </div> -->
+                  <div class="col-md-8 order-md-1">
+                     <!-- <p class="text-center" *ngIf="!!orderDetails && !!orderDetails.detail && orderDetails.detail.up_id !== ''"><u><strong>UPID:</strong></u> {{orderDetails.detail.up_id}}</p> -->
+                     <!-- <div class="echeckout_searchform" *ngIf="addressTemplate && !paymentTemplate && !thankyouTemplate">
+                        <form [formGroup]="searchForm">
+                           <div class="input-group">
+                              <input type="text" class="form-control" aria-label="Search" aria-describedby="search-addon2" #box (keyup)="onKey(box.value)" placeholder="Search Your Location" formControlName="search">
+                              <div class="input-group-append">
+                                 <span class="input-group-text" id="search-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+                              </div>
+                           </div>
+                        </form>
+                        <div class="tab_dropdown_content p-0" *ngIf="showsearchDropdown">
+                           <ng-container *ngIf="!!searchResults && searchResults[0] === 'Loading'">
+                              <div class="d-flex justify-content-center p-2">
+                                 <p class="m-0">Loading...</p>
+                                 <div class="spinner-grow spinner-grow-sm ml-auto text-success" role="status" aria-hidden="true"></div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && (searchResults === 'No Results Found' || searchResults.length === 0)">
+                              <div class="list-group py-1">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                    <p class="m-0">No Results Found</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && searchResults[0] === 'Network Error'">
+                              <div class="list-group py-1">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                    <p class="m-0">Network Error</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && searchResults !== ''">
+                              <div class="list-group" *ngFor="let searcheddata of searchResults" (click)="captureSearch(searcheddata)">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2" *ngIf="!!searcheddata.description">
+                                    <p class="m-0"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp; {{searcheddata.description}}</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && searchResults.length === 1 && searchResults[0].message === 'No Results Found'">
+                              <div class="list-group py-1">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                    <p class="m-0">{{searchResults[0].message}}</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                        </div>
+                     </div> -->
+                     <form class="form-signin" novalidate [formGroup]="usercheckoutForm" *ngIf="!!usercheckoutForm" #userDetails="ngForm" (ngSubmit)="saveUserDetails(userDetails)">
+                  <ng-template [ngIf]="addressTemplate && !paymentTemplate && !thankyouTemplate">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <h6 class="my-3">Billing address</h6>
+                           <fieldset [disabled]="isFormDisable === true">
+                              <div class="form-row">
+                                 <div class="col-6 form-group required">
+                                    <label class="control-label">Billing Address1 </label>
+                                    <input type="text" class="form-control" maxLength="100" placeholder="Billing Address1" name="address1" formControlName="address1" [ngClass]="{ 'is-invalid': submitted && usercheckout.address1.errors }">
+                                    <div *ngIf="submitted && usercheckout.address1.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.address1.errors.required">Address is required</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-6 form-group">
+                                    <label class="control-label">Billing Address2</label>
+                                    <input type="text" class="form-control" maxLength="100" placeholder="Billing Address2" name="address2" formControlName="address2">
+                                 </div>
+                              </div>
+                              <div class="form-row">
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">City</label>
+                                    <input type="text" class="form-control" placeholder="City" minlength="5" maxLength="50" autofocus name="city" formControlName="city" [ngClass]="{ 'is-invalid': submitted && usercheckout.city.errors }">
+                                    <div *ngIf="submitted && usercheckout.city.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.city.errors.required">City is required</div>
+                                       <div *ngIf="usercheckout.city.errors.pattern">City should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.city.errors.minlength">City should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Country </label>
+                                    <input type="text" class="form-control" placeholder="Country" minlength="5" maxLength="50" autofocus name="country" formControlName="country" [ngClass]="{ 'is-invalid': submitted && usercheckout.country.errors }">
+                                    <div *ngIf="submitted && usercheckout.country.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.country.errors.required">Country is required</div>
+                                       <div *ngIf="usercheckout.country.errors.pattern">Country should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.country.errors.minlength">Country should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">State</label>
+                                    <input type="text" class="form-control" placeholder="State" minlength="5" maxLength="50" name="state" formControlName="state" [ngClass]="{ 'is-invalid': submitted && usercheckout.state.errors }">
+                                    <div *ngIf="submitted && usercheckout.state.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.state.errors.required">State is required</div>
+                                       <div *ngIf="usercheckout.state.errors.pattern">State should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.state.errors.minlength">State should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Zip Code </label>
+                                    <input type="text" class="form-control" placeholder="Zip Code" minlength="5" maxLength="7" autofocus name="zip_code" formControlName="zip_code" [ngClass]="{ 'is-invalid': submitted && usercheckout.zip_code.errors }">
+                                    <div *ngIf="submitted && usercheckout.zip_code.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.zip_code.errors.required">Zipcode is required</div>
+                                       <div *ngIf="usercheckout.zip_code.errors.pattern">Zipcode is invalid</div>
+                                       <div *ngIf="usercheckout.zip_code.errors.minlength">Zipcode should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </fieldset>
+                           <hr class="mb-4">
+                           <div class="form-row">
+                              <div class="col-6">
+                                 <h6 class="mb-3">Shipping address</h6>
+                              </div>
+                              <div class="col-6">
+                                 <div class="custom-control custom-checkbox text-right">
+                                    <input type="checkbox" class="custom-control-input" id="same-address" [checked]="isChecked" (change)="checkValue($event)">
+                                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <fieldset  [disabled]="isFormDisable === true">
+                              <div class="form-row">
+                                 <div class="col-6 form-group required">
+                                    <label class="control-label">Address1</label>
+                                    <input type="text" class="form-control" [disabled]="isChecked === false" placeholder="S Address1" maxlength="100" name="s_address1" formControlName="s_address1" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_address1.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_address1.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_address1.errors.required">S Address1 is required</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-6 form-group">
+                                    <label class="control-label">Address2</label>
+                                    <input type="text" class="form-control" placeholder="S Address2" maxlength="100" autofocus name="s_address2" formControlName="s_address2">
+                                 </div>
+                              </div>
+                              <div class="form-row">
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Country</label>
+                                    <input type="text" class="form-control" placeholder="S Country" minlength="5" maxLength="50" autofocus name="s_country" formControlName="s_country" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_country.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_country.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_country.errors.required">S Country is required</div>
+                                       <div *ngIf="usercheckout.s_country.errors.pattern">S Country is invalid</div>
+                                       <div *ngIf="usercheckout.s_country.errors.minlength">S Country should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">State</label>
+                                    <input type="text" class="form-control" placeholder="S State" minlength="5" maxLength="50" name="s_state" formControlName="s_state" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_state.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_state.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_state.errors.required">S State is required</div>
+                                       <div *ngIf="usercheckout.s_state.errors.pattern">S State is invalid</div>
+                                       <div *ngIf="usercheckout.s_state.errors.minlength">S State should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">City</label>
+                                    <input type="text" class="form-control" placeholder="S City" minlength="5" maxLength="50" autofocus name="s_city" formControlName="s_city" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_city.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_city.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_city.errors.required">S City is required</div>
+                                       <div *ngIf="usercheckout.s_city.errors.pattern">S City should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.s_city.errors.minlength">S City should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Zip Code</label>
+                                    <input type="text" class="form-control" placeholder="S Zip Code" minlength="5" maxLength="7" autofocus name="s_zip_code" formControlName="s_zip_code" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_zip_code.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_zip_code.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_zip_code.errors.required">S Zipcode is required</div>
+                                       <div *ngIf="usercheckout.s_zip_code.errors.pattern">S Zipcode is invalid</div>
+                                       <div *ngIf="usercheckout.s_zip_code.errors.minlength">S Zipcode should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </fieldset>
+                        </div>
+                     </div>
+                     <hr class="mb-4">
+                     <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="save-info">
+                        <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                     </div>
+                     <div class="form-row py-3">
+                        <button type="button" class="btn tripdrive_btn_primary w-25" (click)="gotoPayment()">Proceed to Payment <i class="fa fa-arrow-right"></i></button>
+                     </div>
+                  </ng-template>
+                  <ng-template [ngIf]="!addressTemplate && paymentTemplate && !thankyouTemplate">
+                     <h6 class="mb-3">Payment</h6>
+                     <div class="form-row py-2">
+                        <div class="col-12 my-auto">
+                           <label class="control-label px-2 m-auto">Customer Type</label>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Company" type="radio" class="custom-control-input" [value]="'Company'" name="type" required formControlName="type">
+                              <label class="custom-control-label" for="Company">Company</label>
+                           </div>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Individual" type="radio" class="custom-control-input" [value]="'Individual'" name="type" required formControlName="type">
+                              <label class="custom-control-label" for="Individual">Individual</label>
+                           </div>
+                           <div class="error-container" *ngIf="submitted && usercheckout.type.errors">
+                              <div class="error-message" *ngIf="submitted && usercheckout.type.errors">Type is required</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-12 my-auto">
+                           <label class="control-label px-2 m-auto">Mode Of Payment</label>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="is_card_payment" type="radio" class="custom-control-input" [value]="true" name="is_card_payment" required formControlName="is_card_payment">
+                              <label class="custom-control-label" for="is_card_payment">Card Payment</label>
+                           </div>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Is_bank_payment" type="radio" class="custom-control-input" [value]="false" name="is_card_payment" required formControlName="is_card_payment">
+                              <label class="custom-control-label" for="Is_bank_payment">Bank Payment</label>
+                           </div>
+                           <div class="error-container" *ngIf="submitted && usercheckout.is_card_payment.errors">
+                              <div class="error-message" *ngIf="usercheckout.is_card_payment.errors.required">Payment is required</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row py-4" *ngIf="usercheckoutForm.value.is_card_payment === true">
+                        <div class="col-xs-12 col-md-6 m-auto">
+                           <div class="card eweb_cardpayment">
+                               <div class="card-header">
+                                   <div class="row">
+                                       <img class="img-fluid cc-img w-50 m-auto" src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
+                                   </div>
+                               </div>
+                               <div class="card-body">
+                                 <div class="form-group required">
+                                    <label class="control-label">Card Holder Name</label>
+                                    <input type="text" class="form-control" placeholder="Name on Card" name="card_owner_name" formControlName="card_owner_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.card_owner_name.errors }">
+                                    <div *ngIf="submitted && usercheckout.card_owner_name.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.card_owner_name.errors.required">Card Name is required</div>
+                                       <div *ngIf="usercheckout.card_owner_name.errors.pattern">Card Name is invalid</div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group required">
+                                    <label class="control-label">Card Number</label>
+                                    <input type="text" class="form-control" placeholder="Valid Card Number" name="card_number" formControlName="card_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.card_number.errors }">
+                                    <div *ngIf="submitted && usercheckout.card_number.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.card_number.errors.required">Card Number is required</div>
+                                       <div *ngIf="usercheckout.card_number.errors.pattern">Card Number is invalid</div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-md-6 form-group required">
+                                       <label class="control-label">Expiry Date </label>
+                                       <input type="text" class="form-control" placeholder="DD/YY" name="expiry_date" formControlName="expiry_date" [ngClass]="{ 'is-invalid': submitted && usercheckout.expiry_date.errors }">
+                                       <div *ngIf="submitted && usercheckout.expiry_date.errors" class="invalid-feedback">
+                                          <div *ngIf="usercheckout.expiry_date.errors.required">Expiry Date is required</div>
+                                          <div *ngIf="usercheckout.expiry_date.errors.pattern">Expiry Data is invalid</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6 form-group required">
+                                       <label class="control-label">CVV</label>
+                                       <input type="text" class="form-control" placeholder="CVV" name="cvv" formControlName="cvv" [ngClass]="{ 'is-invalid': submitted && usercheckout.cvv.errors }">
+                                       <div *ngIf="submitted && usercheckout.cvv.errors" class="invalid-feedback">
+                                          <div *ngIf="usercheckout.cvv.errors.required">CVV is required</div>
+                                          <div *ngIf="usercheckout.cvv.errors.pattern">CVV is invalid</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                               </div>
+                           </div>
+                       </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-12 form-group" *ngIf="usercheckoutForm.value.is_card_payment === false">
+                           <label class="control-label">Bank Name</label>
+                           <input type="text" class="form-control" placeholder="Bank Name" maxlength="100" autofocus name="bank_name" formControlName="bank_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.bank_name.errors }">
+                           <div *ngIf="submitted && usercheckout.bank_name.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.bank_name.errors.required">Bank Name is required</div>
+                              <div *ngIf="usercheckout.bank_name.errors.pattern">Bank Name should contain only alphabets.</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row" *ngIf="usercheckoutForm.value.is_card_payment === false">
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Account Number</label>
+                           <input type="text" class="form-control" placeholder="Account Number" name="account_number" formControlName="account_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.account_number.errors }">
+                           <div *ngIf="submitted && usercheckout.account_number.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.account_number.errors.required">Account Number is required</div>
+                              <div *ngIf="usercheckout.account_number.errors.pattern">Account No. should contain only numbers.</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Routing Number Bank</label>
+                           <input type="text" class="form-control" placeholder="Routing Number Bank" maxlength="9" autofocus name="routing_number" formControlName="routing_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.routing_number.errors }">
+                           <div *ngIf="submitted && usercheckout.routing_number.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.routing_number.errors.required">Routing Number is required</div>
+                              <div *ngIf="usercheckout.routing_number.errors.pattern">Ensure number is 9 digits long and has first two digits comply with American Bankers Association rules.</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Company Name</label>
+                           <input type="text" class="form-control" placeholder="Bank Company Name" maxlength="50" autofocus name="company_name" formControlName="company_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.company_name.errors }">
+                           <div *ngIf="submitted && usercheckout.company_name.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.company_name.errors.required">Company Name is required</div>
+                              <div *ngIf="usercheckout.company_name.errors.pattern">Company Name should contain only alphabets.</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="py-2 form-group">
+                           <textarea rows="3" cols="150" maxlength="300" formControlName="comment" name="comment" class="form-control" placeholder="Comments. If any?"></textarea>
+                        </div>
+                     </div>
+                     <hr class="mb-4">
+                     <button type="button" class="btn wms_btn_secondary w-25" (click)="gobacktoaddress()"> Go Back</button>
+                     <button class="btn tripdrive_btn_primary w-25 ml-2" type="submit">Submit <i class="fa fa-arrow-right"></i></button>
+                  </ng-template>
+                  </form>
+                  </div>
+               </div>
+
+               <div class="row product_details" style = "display: none;" >
+                  <div class="col-md-4 order-md-2 mb-4">
+                     <h6 class="mb-3">Order Details</h6>
+                     <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Product ID</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.product_id}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Product Name</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.product_name}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                           <div>
+                              <h6 class="my-0">Quantity</h6>
+                           </div>
+                           <span class="text-muted">{{orderDetails?.detail?.quantity}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between list-group-item-secondary">
+                           <span>Total Price (USD)</span>
+                           <strong>{{orderDetails?.detail?.total_price}}</strong>
+                        </li>
+                     </ul>
+                  </div>
+                  <!-- <div class="col-md-8 order-md-1">
+                     <p class="text-center" *ngIf="!!orderDetails && !!orderDetails.detail && orderDetails.detail.up_id !== ''"><u><strong>UPID:</strong></u> {{orderDetails.detail.up_id}}</p>
+                     <div class="echeckout_searchform" *ngIf="addressTemplate && !paymentTemplate && !thankyouTemplate">
+                        <form [formGroup]="searchForm">
+                           <div class="input-group">
+                              <input type="text" class="form-control" aria-label="Search" aria-describedby="search-addon2" #box (keyup)="onKey(box.value)" placeholder="Search Your Location" formControlName="search">
+                              <div class="input-group-append">
+                                 <span class="input-group-text" id="search-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+                              </div>
+                           </div>
+                        </form>
+                        <div class="tab_dropdown_content p-0" *ngIf="showsearchDropdown">
+                           <ng-container *ngIf="!!searchResults && searchResults[0] === 'Loading'">
+                              <div class="d-flex justify-content-center p-2">
+                                 <p class="m-0">Loading...</p>
+                                 <div class="spinner-grow spinner-grow-sm ml-auto text-success" role="status" aria-hidden="true"></div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && (searchResults === 'No Results Found' || searchResults.length === 0)">
+                              <div class="list-group py-1">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                    <p class="m-0">No Results Found</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && searchResults[0] === 'Network Error'">
+                              <div class="list-group py-1">
+                                 <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                    <p class="m-0">Network Error</p>
+                                 </div>
+                              </div>
+                           </ng-container>
+                           <ng-container *ngIf="!!searchResults && searchResults !== ''">
+                           <div class="list-group" *ngFor="let searcheddata of searchResults" (click)="captureSearch(searcheddata)">
+                              <div class="list-group-item list-group-item-action list-group-item-light p-2" *ngIf="!!searcheddata.description">
+                                 <p class="m-0"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp; {{searcheddata.description}}</p>
+                              </div>
+                           </div>
+                        </ng-container>
+                        <ng-container *ngIf="!!searchResults && searchResults.length === 1 && searchResults[0].message === 'No Results Found'">
+                           <div class="list-group py-1">
+                              <div class="list-group-item list-group-item-action list-group-item-light p-2">
+                                 <p class="m-0">{{searchResults[0].message}}</p>
+                              </div>
+                           </div>
+                        </ng-container>
+                     </div>
+                  </div>
+                  <form class="form-signin" novalidate [formGroup]="usercheckoutForm" *ngIf="!!usercheckoutForm" #userDetails="ngForm" (ngSubmit)="saveUserDetails(userDetails)">
+                  <ng-template [ngIf]="addressTemplate && !paymentTemplate && !thankyouTemplate">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <h6 class="my-3">Billing address</h6>
+                           <fieldset [disabled]="isFormDisable === true">
+                              <div class="form-row">
+                                 <div class="col-6 form-group required">
+                                    <label class="control-label">Billing Address1 </label>
+                                    <input type="text" class="form-control" maxLength="100" placeholder="Billing Address1" name="address1" formControlName="address1" [ngClass]="{ 'is-invalid': submitted && usercheckout.address1.errors }">
+                                    <div *ngIf="submitted && usercheckout.address1.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.address1.errors.required">Address is required</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-6 form-group">
+                                    <label class="control-label">Billing Address2</label>
+                                    <input type="text" class="form-control" maxLength="100" placeholder="Billing Address2" name="address2" formControlName="address2">
+                                 </div>
+                              </div>
+                              <div class="form-row">
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">City</label>
+                                    <input type="text" class="form-control" placeholder="City" minlength="5" maxLength="50" autofocus name="city" formControlName="city" [ngClass]="{ 'is-invalid': submitted && usercheckout.city.errors }">
+                                    <div *ngIf="submitted && usercheckout.city.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.city.errors.required">City is required</div>
+                                       <div *ngIf="usercheckout.city.errors.pattern">City should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.city.errors.minlength">City should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Country </label>
+                                    <input type="text" class="form-control" placeholder="Country" minlength="5" maxLength="50" autofocus name="country" formControlName="country" [ngClass]="{ 'is-invalid': submitted && usercheckout.country.errors }">
+                                    <div *ngIf="submitted && usercheckout.country.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.country.errors.required">Country is required</div>
+                                       <div *ngIf="usercheckout.country.errors.pattern">Country should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.country.errors.minlength">Country should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">State</label>
+                                    <input type="text" class="form-control" placeholder="State" minlength="5" maxLength="50" name="state" formControlName="state" [ngClass]="{ 'is-invalid': submitted && usercheckout.state.errors }">
+                                    <div *ngIf="submitted && usercheckout.state.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.state.errors.required">State is required</div>
+                                       <div *ngIf="usercheckout.state.errors.pattern">State should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.state.errors.minlength">State should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Zip Code </label>
+                                    <input type="text" class="form-control" placeholder="Zip Code" minlength="5" maxLength="7" autofocus name="zip_code" formControlName="zip_code" [ngClass]="{ 'is-invalid': submitted && usercheckout.zip_code.errors }">
+                                    <div *ngIf="submitted && usercheckout.zip_code.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.zip_code.errors.required">Zipcode is required</div>
+                                       <div *ngIf="usercheckout.zip_code.errors.pattern">Zipcode is invalid</div>
+                                       <div *ngIf="usercheckout.zip_code.errors.minlength">Zipcode should be minimum 5 character</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </fieldset>
+                           <hr class="mb-4">
+                           <div class="form-row">
+                              <div class="col-6">
+                                 <h6 class="mb-3">Shipping address</h6>
+                              </div>
+                              <div class="col-6">
+                                 <div class="custom-control custom-checkbox text-right">
+                                    <input type="checkbox" class="custom-control-input" id="same-address" [checked]="isChecked" (change)="checkValue($event)">
+                                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <fieldset  [disabled]="isFormDisable === true">
+                              <div class="form-row">
+                                 <div class="col-6 form-group required">
+                                    <label class="control-label">Address1</label>
+                                    <input type="text" class="form-control" [disabled]="isChecked === false" placeholder="S Address1" maxlength="100" name="s_address1" formControlName="s_address1" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_address1.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_address1.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_address1.errors.required">S Address1 is required</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-6 form-group">
+                                    <label class="control-label">Address2</label>
+                                    <input type="text" class="form-control" placeholder="S Address2" maxlength="100" autofocus name="s_address2" formControlName="s_address2">
+                                 </div>
+                              </div>
+                              <div class="form-row">
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Country</label>
+                                    <input type="text" class="form-control" placeholder="S Country" minlength="5" maxLength="50" autofocus name="s_country" formControlName="s_country" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_country.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_country.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_country.errors.required">S Country is required</div>
+                                       <div *ngIf="usercheckout.s_country.errors.pattern">S Country is invalid</div>
+                                       <div *ngIf="usercheckout.s_country.errors.minlength">S Country should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">State</label>
+                                    <input type="text" class="form-control" placeholder="S State" minlength="5" maxLength="50" name="s_state" formControlName="s_state" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_state.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_state.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_state.errors.required">S State is required</div>
+                                       <div *ngIf="usercheckout.s_state.errors.pattern">S State is invalid</div>
+                                       <div *ngIf="usercheckout.s_state.errors.minlength">S State should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">City</label>
+                                    <input type="text" class="form-control" placeholder="S City" minlength="5" maxLength="50" autofocus name="s_city" formControlName="s_city" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_city.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_city.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_city.errors.required">S City is required</div>
+                                       <div *ngIf="usercheckout.s_city.errors.pattern">S City should contain only alphabets</div>
+                                       <div *ngIf="usercheckout.s_city.errors.minlength">S City should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                                 <div class="col-3 form-group required">
+                                    <label class="control-label">Zip Code</label>
+                                    <input type="text" class="form-control" placeholder="S Zip Code" minlength="5" maxLength="7" autofocus name="s_zip_code" formControlName="s_zip_code" [ngClass]="{ 'is-invalid': submitted && usercheckout.s_zip_code.errors }">
+                                    <div *ngIf="submitted && usercheckout.s_zip_code.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.s_zip_code.errors.required">S Zipcode is required</div>
+                                       <div *ngIf="usercheckout.s_zip_code.errors.pattern">S Zipcode is invalid</div>
+                                       <div *ngIf="usercheckout.s_zip_code.errors.minlength">S Zipcode should be minimum 5 characters</div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </fieldset>
+                        </div>
+                     </div>
+                     <hr class="mb-4">
+                     <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="save-info">
+                        <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                     </div>
+                     <div class="form-row py-3">
+                        <button type="button" class="btn tripdrive_btn_primary w-25" (click)="gotoPayment()">Proceed to Payment <i class="fa fa-arrow-right"></i></button>
+                     </div>
+                  </ng-template>
+                  <ng-template [ngIf]="!addressTemplate && paymentTemplate && !thankyouTemplate">
+                     <h6 class="mb-3">Payment</h6>
+                     <div class="form-row py-2">
+                        <div class="col-12 my-auto">
+                           <label class="control-label px-2 m-auto">Customer Type</label>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Company" type="radio" class="custom-control-input" [value]="'Company'" name="type" required formControlName="type">
+                              <label class="custom-control-label" for="Company">Company</label>
+                           </div>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Individual" type="radio" class="custom-control-input" [value]="'Individual'" name="type" required formControlName="type">
+                              <label class="custom-control-label" for="Individual">Individual</label>
+                           </div>
+                           <div class="error-container" *ngIf="submitted && usercheckout.type.errors">
+                              <div class="error-message" *ngIf="submitted && usercheckout.type.errors">Type is required</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-12 my-auto">
+                           <label class="control-label px-2 m-auto">Mode Of Payment</label>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="is_card_payment" type="radio" class="custom-control-input" [value]="true" name="is_card_payment" required formControlName="is_card_payment">
+                              <label class="custom-control-label" for="is_card_payment">Card Payment</label>
+                           </div>
+                           <div class="custom-control custom-radio custom-control-inline">
+                              <input id="Is_bank_payment" type="radio" class="custom-control-input" [value]="false" name="is_card_payment" required formControlName="is_card_payment">
+                              <label class="custom-control-label" for="Is_bank_payment">Bank Payment</label>
+                           </div>
+                           <div class="error-container" *ngIf="submitted && usercheckout.is_card_payment.errors">
+                              <div class="error-message" *ngIf="usercheckout.is_card_payment.errors.required">Payment is required</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row py-4" *ngIf="usercheckoutForm.value.is_card_payment === true">
+                        <div class="col-xs-12 col-md-6 m-auto">
+                           <div class="card eweb_cardpayment">
+                               <div class="card-header">
+                                   <div class="row">
+                                       <img class="img-fluid cc-img w-50 m-auto" src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
+                                   </div>
+                               </div>
+                               <div class="card-body">
+                                 <div class="form-group required">
+                                    <label class="control-label">Card Holder Name</label>
+                                    <input type="text" class="form-control" placeholder="Name on Card" name="card_owner_name" formControlName="card_owner_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.card_owner_name.errors }">
+                                    <div *ngIf="submitted && usercheckout.card_owner_name.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.card_owner_name.errors.required">Card Name is required</div>
+                                       <div *ngIf="usercheckout.card_owner_name.errors.pattern">Card Name is invalid</div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group required">
+                                    <label class="control-label">Card Number</label>
+                                    <input type="text" class="form-control" placeholder="Valid Card Number" name="card_number" formControlName="card_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.card_number.errors }">
+                                    <div *ngIf="submitted && usercheckout.card_number.errors" class="invalid-feedback">
+                                       <div *ngIf="usercheckout.card_number.errors.required">Card Number is required</div>
+                                       <div *ngIf="usercheckout.card_number.errors.pattern">Card Number is invalid</div>
+                                    </div>
+                                 </div>
+                                 <div class="form-row">
+                                    <div class="col-md-6 form-group required">
+                                       <label class="control-label">Expiry Date </label>
+                                       <input type="text" class="form-control" placeholder="DD/YY" name="expiry_date" formControlName="expiry_date" [ngClass]="{ 'is-invalid': submitted && usercheckout.expiry_date.errors }">
+                                       <div *ngIf="submitted && usercheckout.expiry_date.errors" class="invalid-feedback">
+                                          <div *ngIf="usercheckout.expiry_date.errors.required">Expiry Date is required</div>
+                                          <div *ngIf="usercheckout.expiry_date.errors.pattern">Expiry Data is invalid</div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6 form-group required">
+                                       <label class="control-label">CVV</label>
+                                       <input type="text" class="form-control" placeholder="CVV" name="cvv" formControlName="cvv" [ngClass]="{ 'is-invalid': submitted && usercheckout.cvv.errors }">
+                                       <div *ngIf="submitted && usercheckout.cvv.errors" class="invalid-feedback">
+                                          <div *ngIf="usercheckout.cvv.errors.required">CVV is required</div>
+                                          <div *ngIf="usercheckout.cvv.errors.pattern">CVV is invalid</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                               </div>
+                           </div>
+                       </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="col-12 form-group" *ngIf="usercheckoutForm.value.is_card_payment === false">
+                           <label class="control-label">Bank Name</label>
+                           <input type="text" class="form-control" placeholder="Bank Name" maxlength="100" autofocus name="bank_name" formControlName="bank_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.bank_name.errors }">
+                           <div *ngIf="submitted && usercheckout.bank_name.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.bank_name.errors.required">Bank Name is required</div>
+                              <div *ngIf="usercheckout.bank_name.errors.pattern">Bank Name should contain only alphabets.</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row" *ngIf="usercheckoutForm.value.is_card_payment === false">
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Account Number</label>
+                           <input type="text" class="form-control" placeholder="Account Number" name="account_number" formControlName="account_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.account_number.errors }">
+                           <div *ngIf="submitted && usercheckout.account_number.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.account_number.errors.required">Account Number is required</div>
+                              <div *ngIf="usercheckout.account_number.errors.pattern">Account No. should contain only numbers.</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Routing Number Bank</label>
+                           <input type="text" class="form-control" placeholder="Routing Number Bank" maxlength="9" autofocus name="routing_number" formControlName="routing_number" [ngClass]="{ 'is-invalid': submitted && usercheckout.routing_number.errors }">
+                           <div *ngIf="submitted && usercheckout.routing_number.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.routing_number.errors.required">Routing Number is required</div>
+                              <div *ngIf="usercheckout.routing_number.errors.pattern">Ensure number is 9 digits long and has first two digits comply with American Bankers Association rules.</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group ">
+                           <label class="control-label">Company Name</label>
+                           <input type="text" class="form-control" placeholder="Bank Company Name" maxlength="50" autofocus name="company_name" formControlName="company_name" [ngClass]="{ 'is-invalid': submitted && usercheckout.company_name.errors }">
+                           <div *ngIf="submitted && usercheckout.company_name.errors" class="invalid-feedback">
+                              <div *ngIf="usercheckout.company_name.errors.required">Company Name is required</div>
+                              <div *ngIf="usercheckout.company_name.errors.pattern">Company Name should contain only alphabets.</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row">
+                        <div class="py-2 form-group">
+                           <textarea rows="3" cols="150" maxlength="300" formControlName="comment" name="comment" class="form-control" placeholder="Comments. If any?"></textarea>
+                        </div>
+                     </div>
+                     <hr class="mb-4">
+                     <button type="button" class="btn wms_btn_secondary w-25" (click)="gobacktoaddress()"> Go Back</button>
+                     <button class="btn tripdrive_btn_primary w-25 ml-2" type="submit">Submit <i class="fa fa-arrow-right"></i></button>
+                  </ng-template>
+                  </form>
+                  </div> -->
+               </div>
+            </div>
+         </div>
+      </ng-template>
+      <ng-template [ngIf]="thankyouTemplate">
+         <div class="jumbotron text-center">
+            <h1 class="display-3">Thank You!</h1>
+            <p class="lead"><strong>Please check your email</strong> for further instructions.</p>
+            <hr>
+            <p>
+               Having trouble? &nbsp; Please mail us at: <b>contact@ewebpay.com</b>
+            </p>
+            <p class="lead">
+               <a class="btn tripdrive_btn_primary w-50" href="#" [routerLink]="['/']" role="button">Continue</a>
+            </p>
+         </div>
+      </ng-template>
+      <footer class="py-2 text-muted text-center text-small">
+         <p class="m-auto"><small>&copy;2020 ewebpay. All rights reserved</small></p>
+      </footer>
+   </div>
+</div>

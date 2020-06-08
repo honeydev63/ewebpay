@@ -1,0 +1,42 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+       <div class="card">
+          <div class="card-header">
+             <div class="row row-30 m-auto">
+                <h5 class="m-0 text-capitalize" >Customer Verification</h5>
+             </div>
+             <p class="text-primary m-0">
+                <span class="text-secondary">Customer Verification</span>
+             </p>
+          </div>
+          <div class="card-body wms_inventory_form">
+             <div class="row">
+                <div class="col-12" *ngIf="!!otpDetailsForm">
+                   <form class="form-signin" [formGroup]="otpDetailsForm" #checkoutBackDetails="ngForm"  (ngSubmit)="saveDetails(checkoutBackDetails)">
+                   <div class="form-row py-1">
+                      <div class="col-4 form-group">
+                         <label class="d-block control-label">Mobile OTP</label>
+                         <input type="number" class="form-control" placeholder="Mobile OTP" formControlName="mobile_otp"  name="mobile_otp">
+                      </div>
+                        <div class="col-4 form-group ">
+                            <label class="d-block control-label">Email OTP</label>
+                            <input type="number" class="form-control" placeholder="Email OTP"  name="email_otp" formControlName="email_otp" >
+                         </div>
+                   </div>
+                   <div class="form-row py-1">
+                    <div class="col-4 ">
+                        <button class="btn wms_btn_link mx-2 float-left" type="button" (click)="resendOtp()">Resend OTP</button>
+                    </div>
+                 </div>
+                   <hr>
+                   <div class="form-group text-right">
+                      <button class="btn wms_btn_primary mx-2" type="submit" >Save</button>
+                      <button class="btn wms_btn_secondary" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                   </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>

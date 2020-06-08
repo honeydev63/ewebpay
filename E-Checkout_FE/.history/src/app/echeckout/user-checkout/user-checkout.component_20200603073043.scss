@@ -1,0 +1,66 @@
+@import 'src/assets/scss/variables';
+@import 'src/assets/scss/epharma';
+
+.insowa_usercheckout_card {
+    box-shadow: $primary-box-shadow;
+    .card-header {
+        background: $primary-blue;
+        color: $white;
+    }
+    .eweb_cardpayment {
+        border: 1px solid $light-grey;
+        .card-header {
+            background: $light-grey;
+            .card-body {
+                padding: 1rem;
+            }
+        }
+    }
+}
+
+.d-inline-block.align-top {
+    margin-left:auto; 
+    margin-right:auto; 
+    border-bottom-left-radius:15px; 
+    border-bottom-right-radius:15px;
+
+}
+
+.navbar.navbar-light.navbar-expand-lg.p-1.tripdrive_navbar{
+    background:#3FA4E3;    
+    padding-bottom: 15rem !important;
+    padding-top: 0 !important;
+
+}
+
+.tripdrive_listing_header.pt-5{
+    margin-top: -200px !important;
+}
+
+.card.insowa_usercheckout_card{
+    border-radius: 15px;
+}
+
+.row.current_tab{
+    width: 65%; 
+    margin-left : auto;
+    margin-right : auto;
+}
+
+.person, .product, .payment{
+    width:33%; 
+    text-align: center;
+    border-bottom: 2px solid #aaaaaa;
+    margin-bottom: 35px;
+    height:40px;
+
+}
+
+.container-fluid {
+    width: 80% !important;
+}
+
+.col-md-8.order-md-1, .col-md-4.order-md-2.mb-4{
+    margin-left: auto;
+    margin-right: auto;
+}

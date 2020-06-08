@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="29.662" viewBox="0 0 34 29.662">
+  <g id="Group_315" data-name="Group 315" transform="translate(-1534 -54)">
+    <g id="Icon_feather-bell" data-name="Icon feather-bell" transform="translate(1530.5 53)">
+      <path id="Path_364" data-name="Path 364" d="M24.5,11a8,8,0,1,0-16,0c0,9.333-4,12-4,12h24s-4-2.667-4-12" transform="translate(0 0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_365" data-name="Path 365" d="M20.018,31.5a2.667,2.667,0,0,1-4.613,0" transform="translate(-1.212 -3.167)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+    <circle id="Ellipse_41" data-name="Ellipse 41" cx="9" cy="9" r="9" transform="translate(1550 54)" fill="red"/>
+    <text id="_2" data-name="2" transform="translate(1556 67)" fill="#fff" font-size="12" font-family="Poppins-Bold, Poppins" font-weight="700"><tspan x="0" y="0">2</tspan></text>
+  </g>
+</svg>

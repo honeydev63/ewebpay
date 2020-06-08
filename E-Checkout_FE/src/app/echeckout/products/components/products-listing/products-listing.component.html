@@ -1,0 +1,102 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="row row-30 m-auto">
+         <div class="col-md-4 px-4 py-3">
+            <h3>Products</h3>
+            <p class="text-primary m-0">
+               <span class="text-secondary">Products</span>
+            </p>
+         </div>
+         <div class="col d-flex justify-content-end align-items-center h-auto">
+            <div class="d-flex mx-1" *ngIf="pages && !!pages.perPage">
+               <span class="px-1 m-auto font-weight-bold">Size: </span>
+               <ng-select [items]="rowLimits"
+               bindLabel="name"
+               [clearable]="false"
+               [(ngModel)]="pages.perPage"
+               (ngModelChange)="changeRowLimits($event)"
+               >
+               </ng-select>
+            </div>
+            <div class="w-25">
+               <form [formGroup]="searchForm">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search here..." formControlName="search" name="search">
+                     <div class="input-group-append ">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <button class="btn wms_btn_link p-2 mx-2" (click)="getProductListingData()">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+            Refresh
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" type="button" (click)="exportFile()" *ngIf="localUserRole === userRole.admin">
+            <i class="fa fa-exchange" aria-hidden="true"></i>
+            Export
+            </button>
+            <button class="btn wms_btn_link p-2 mx-2" [routerLink]="['/products/product']" [queryParams]="{ type: 'add'}" *ngIf="localUserRole === userRole.admin">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add New Product
+            </button>
+         </div>
+      </div>
+   </div>
+   <div *ngIf="!!rows && !!columns && !!pages">
+      <ngx-datatable 
+      class="material"
+      [rows]="rows"
+      [columnMode]="ColumnMode.force" 
+      [headerHeight]="50" 
+      [footerHeight]="50"
+      rowHeight="auto"
+      [externalPaging]="true"
+      [count]="pages.totalEntries"
+      [offset]="pages.currentPage"
+      [limit]="pages.perPage"
+      (page)="setPage($event)"
+      >
+      <ngx-datatable-column name="Serial Number" prop="serial" [sortable]="false" [width]="100"></ngx-datatable-column>
+      <ngx-datatable-column name="Product Id" prop="product_id" [sortable]="false" [width]="100"></ngx-datatable-column>
+      <ngx-datatable-column name="Product Name" prop="product_name" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Product Type" prop="product_type" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Price" prop="price" [sortable]="false"></ngx-datatable-column>
+      <ngx-datatable-column name="Actions" prop="product_id" [width]="240" [sortable]="false" *ngIf="localUserRole === userRole.admin">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+         <!-- {{value}} {{row}} -->
+         <span class="mx-1 "></span>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="viewProduct(row)" data-toggle="tooltip" data-placement="bottom" title="View Product"><i class="fa fa-eye"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editProduct(row)" data-toggle="tooltip" data-placement="bottom" title="Edit Product"><i class="fa fa-edit"></i></button>
+         <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="deleteProduct(row)" data-toggle="tooltip" data-placement="bottom" title="Delete Product"><i class="fa fa-trash"></i></button>
+      </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-footer *ngIf="!!pages.totalEntries">
+         <ng-template
+            ngx-datatable-footer-template
+            let-rowCount="rowCount"
+            let-pageSize="pageSize"
+            let-count="totalEntries"
+            let-selectedCount="selectedCount"
+            let-curPage="curPage"
+            let-offset="offset"
+            >
+            <div class="w-25" style="padding: 5px 10px">
+               <div> Showing {{((curPage - 1) * pageSize) + 1 }} - {{pageSize > rowCount ? rowCount : ((pageSize * curPage) > rowCount ? rowCount : pageSize * curPage)}} products of {{rowCount}} products </div>
+            </div>
+            <datatable-pager
+            [pagerLeftArrowIcon]="'datatable-icon-left'"
+            [pagerRightArrowIcon]="'datatable-icon-right'"
+            [pagerPreviousIcon]="'datatable-icon-prev'"
+            [pagerNextIcon]="'datatable-icon-skip'"
+            [page]="curPage"
+            [size]="pageSize"
+            [count]="rowCount"
+            [hidden]="!((rowCount / pageSize) > 1)"
+            (change)="setPage($event)">
+            </datatable-pager>
+         </ng-template>
+      </ngx-datatable-footer>
+      </ngx-datatable>
+   </div>
+</div>

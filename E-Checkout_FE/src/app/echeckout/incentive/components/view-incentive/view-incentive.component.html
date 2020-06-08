@@ -1,0 +1,51 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card w-100">
+         <div class="card-header">
+            <div class="row row-30 m-auto">
+               <div class="col-md-11 p-0">
+                  <h5 class="text-capitalize pt-2">Incentive Model : <strong>{{incentiveData?.name}}</strong></h5>
+                  <p class="text-primary text-capitalize text-secondary cursor-pointer  m-0">
+                     <span class="cursor-pointer" [routerLink]="['/incentives']" [queryParams]="{ perPage: 50, currentPage: 1}"> Incentives </span> / <span class="cursor-pointer">View Incentive Model</span>
+                  </p>
+               </div>
+               <div class="col-md-1 p-0 text-right">
+                  <button class="btn wms_btn_secondary" (click)="viewIncentiveBack()">Back</button>
+               </div>
+            </div>
+         </div>
+         <div class="card-body p-4">
+            <p><b>Incentive Model Details: </b></p>
+            <table class="table table-bordered" *ngIf="!!incentiveData; else noSalesIncentiveData">
+               <tbody>
+                  <tr>
+                     <td>
+                        <p><b>Incentive Model Id: </b></p>
+                        <p>{{incentiveData.id === null ? 'NA' : incentiveData.id}}</p>
+                     </td>
+                     <td>
+                        <p><b>Incentive Model Name: </b></p>
+                        <p>{{incentiveData.name === null ? 'NA' : incentiveData.name}}</p>
+                     </td>
+                     <td>
+                        <p><b>Incentive Model Type: </b></p>
+                        <p>{{incentiveData.type === null ? 'NA' : incentiveData.type}}</p>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <p><b>Incentive Model Target Amount: </b></p>
+                        <p>{{incentiveData.target_amount === null ? 'NA' : incentiveData.target_amount}}</p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <ng-template #noSalesIncentiveData>
+               <p>
+                  No Data To Display
+               </p>
+            </ng-template>
+         </div>
+      </div>
+   </div>
+</div>

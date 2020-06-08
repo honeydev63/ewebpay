@@ -1,0 +1,334 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card">
+         <div class="card-header">
+            <div class="col-md-8 p-0">
+               <h3 class="m-0 text-capitalize">Merchant</h3>
+               <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Merchant</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Merchant Fields</li>
+                  </ol>
+                </nav>
+            </div>
+         </div>
+         <div class="card-body d-flex wms_inventory_form">
+            <div class="row w-100">
+               <div class="col-12" *ngIf="!!createMerchantForm">
+                  <form class="form-signin" [formGroup]="createMerchantForm" #createMerchant="ngForm" (ngSubmit)="saveMerchant(createMerchant)">
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Legal Entity Name</label>
+                           <input type="text" class="form-control" placeholder="Legal Entity Name" formControlName="legal_entity_name" name="legal_entity_name" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.legal_entity_name.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.legal_entity_name.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.legal_entity_name.errors.required">Legal Entity Name is required</div>
+                              <div *ngIf="createMerchantForm.controls.legal_entity_name.errors.pattern">Legal Entity Name is invalid</div>
+                              <div *ngIf="createMerchantForm.controls.legal_entity_name.errors.minlength">Legal Entity Name should be minimum 3 character</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Address Line 1</label>
+                           <input type="text" class="form-control" placeholder="Address Line 1"  name="address_line1" formControlName="address_line1" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.address_line1.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.address_line1.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.address_line1.errors.required">Address Line 1 is required</div>
+                              <div *ngIf="createMerchantForm.controls.address_line1.errors.pattern">Address Line 1 is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Address Line 2</label>
+                           <input type="text" class="form-control" placeholder="Address Line 2"  name="address_line2" formControlName="address_line2" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.address_line2.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.address_line2.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.address_line2.errors.required">Address Line 2 is required</div>
+                              <div *ngIf="createMerchantForm.controls.address_line2.errors.pattern">Address Line 2 is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">City</label>
+                           <input type="text" class="form-control" placeholder="City" formControlName="address_city"  name="address_city" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.address_city.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.address_city.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.address_city.errors.required">City is required</div>
+                              <div *ngIf="createMerchantForm.controls.address_city.errors.pattern">City is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">State</label>
+                           <input type="text" class="form-control" placeholder="State"  name="address_state" formControlName="address_state" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.address_state.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.address_state.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.address_state.errors.required">State is required</div>
+                              <div *ngIf="createMerchantForm.controls.address_state.errors.pattern">State is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Zip Code</label>
+                           <input type="text" class="form-control" placeholder="Zip Code"  name="address_zipcode" formControlName="address_zipcode" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.address_zipcode.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.address_zipcode.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.address_zipcode.errors.required">Zip Code is required</div>
+                              <div *ngIf="createMerchantForm.controls.address_zipcode.errors.pattern">Zip Code is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <p class="section-title">Provider Type</p>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Payment Gateway</label>
+                           <input type="text" class="form-control" placeholder="First Name" formControlName="payment_gateway"  name="payment_gateway" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.payment_gateway.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.payment_gateway.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.payment_gateway.errors.required">Payment Gateway is required</div>
+                              <div *ngIf="createMerchantForm.controls.payment_gateway.errors.pattern">Payment Gateway is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Provider Name</label>
+                           <input type="text" class="form-control" placeholder="Provider Name"  name="provider_name" formControlName="provider_name" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.provider_name.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.provider_name.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.provider_name.errors.required">Provider Name is required</div>
+                              <div *ngIf="createMerchantForm.controls.provider_name.errors.pattern">Provider Name is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Descriptor</label>
+                           <input type="text" class="form-control" placeholder="Descriptor"  name="descriptor" formControlName="descriptor" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.descriptor.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.descriptor.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.descriptor.errors.required">Descriptor is required</div>
+                              <div *ngIf="createMerchantForm.controls.descriptor.errors.pattern">Descriptor is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <p class="section-title">Merchant Profile Information</p>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Alias</label>
+                           <input type="text" class="form-control" placeholder="Alias" formControlName="alias"  name="alias" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.alias.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.alias.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.alias.errors.required">Alias is required</div>
+                              <div *ngIf="createMerchantForm.controls.alias.errors.pattern">Alias is invalid</div>
+                              <div *ngIf="createMerchantForm.controls.alias.errors.minlength">Alias should be minimum 3 character</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Credentials</label>
+                           <input type="text" class="form-control" placeholder="Credentials"  name="credential" formControlName="credential" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.credential.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.credential.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.credential.errors.required">Credentials is required</div>
+                              <div *ngIf="createMerchantForm.controls.credential.errors.pattern">Credentials is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Profile ID</label>
+                           <input type="text" class="form-control" placeholder="Profile ID"  name="profile_id" formControlName="profile_id" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.profile_id.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.profile_id.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.profile_id.errors.required">Profile ID is required</div>
+                              <div *ngIf="createMerchantForm.controls.profile_id.errors.pattern">Profile ID is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Profile Key</label>
+                           <input type="text" class="form-control" placeholder="Profile Key" formControlName="profile_key"  name="profile_key" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.profile_key.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.profile_key.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.profile_key.errors.required">Profile Key is required</div>
+                              <div *ngIf="createMerchantForm.controls.profile_key.errors.pattern">Profile Key is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Currency</label>
+                           <input type="text" class="form-control" placeholder="Currency"  name="currency" formControlName="currency" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.currency.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.currency.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.currency.errors.required">Currency is required</div>
+                              <div *ngIf="createMerchantForm.controls.currency.errors.pattern">Currency is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Merchant ID</label>
+                           <input type="text" class="form-control" placeholder="Merchant ID"  name="merchant_id" formControlName="merchant_id" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.merchant_id.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.merchant_id.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.merchant_id.errors.required">Merchant ID is required</div>
+                              <div *ngIf="createMerchantForm.controls.merchant_id.errors.pattern">Merchant ID is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Limit & Fees</label>
+                           <input type="text" class="form-control" placeholder="Limit & Fees" formControlName="limit_n_fees"  name="limit_n_fees" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.limit_n_fees.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.limit_n_fees.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.limit_n_fees.errors.required">Limit & Fees is required</div>
+                              <div *ngIf="createMerchantForm.controls.limit_n_fees.errors.pattern">Limit & Fees is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Global Monthly Cap</label>
+                           <input type="number" class="form-control" placeholder="Global Monthly Cap"  name="global_monthly_cap" formControlName="global_monthly_cap" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.global_monthly_cap.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.global_monthly_cap.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.global_monthly_cap.errors.required">Global Monthly Cap is required</div>
+                              <div *ngIf="createMerchantForm.controls.global_monthly_cap.errors.pattern">Global Monthly Cap is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Daily Cap</label>
+                           <input type="text" class="form-control" placeholder="Daily Cap"  name="daily_cap" formControlName="daily_cap" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.daily_cap.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.daily_cap.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.daily_cap.errors.required">Daily Cap is required</div>
+                              <div *ngIf="createMerchantForm.controls.daily_cap.errors.pattern">Daily Cap is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Weekly Cap</label>
+                           <input type="text" class="form-control" placeholder="Weekly Cap" formControlName="weekly_cap"  name="weekly_cap" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.weekly_cap.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.weekly_cap.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.weekly_cap.errors.required">Weekly Cap is required</div>
+                              <div *ngIf="createMerchantForm.controls.weekly_cap.errors.pattern">Weekly Cap is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Merchant Account Details</label>
+                           <input type="number" class="form-control" placeholder="Merchant Account Details"  name="account_details" formControlName="account_details" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.account_details.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.account_details.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.account_details.errors.required">Merchant Account Details is required</div>
+                              <div *ngIf="createMerchantForm.controls.account_details.errors.pattern">Merchant Account Details is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Customer Service Email</label>
+                           <input type="text" class="form-control" placeholder="Customer Service Email"  name="customer_service_email" formControlName="customer_service_email" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.customer_service_email.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.customer_service_email.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.customer_service_email.errors.required">Customer Service Email is required</div>
+                              <div *ngIf="createMerchantForm.controls.customer_service_email.errors.pattern">Customer Service Email is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Customer Service Email From</label>
+                           <input type="text" class="form-control" placeholder="Customer Service Email From" formControlName="customer_service_email_from"  name="customer_service_email_from" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.customer_service_email_from.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.customer_service_email_from.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.customer_service_email_from.errors.required">Customer Service Email From is required</div>
+                              <div *ngIf="createMerchantForm.controls.customer_service_email_from.errors.pattern">Customer Service Email From is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Gateway URL</label>
+                           <input type="number" class="form-control" placeholder="Gateway URL"  name="gateway_url" formControlName="gateway_url" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.gateway_url.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.gateway_url.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.gateway_url.errors.required">Gateway URL is required</div>
+                              <div *ngIf="createMerchantForm.controls.gateway_url.errors.pattern">Gateway URL is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Transaction Fees</label>
+                           <input type="text" class="form-control" placeholder="Transaction Fees"  name="transaction_fee" formControlName="transaction_fee" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.transaction_fee.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.transaction_fee.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.transaction_fee.errors.required">Transaction Fees is required</div>
+                              <div *ngIf="createMerchantForm.controls.transaction_fee.errors.pattern">Transaction Fees is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Batch Fees</label>
+                           <input type="text" class="form-control" placeholder="Batch Fees" formControlName="batch_fee"  name="batch_fee" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.batch_fee.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.batch_fee.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.batch_fee.errors.required">Batch Fees is required</div>
+                              <div *ngIf="createMerchantForm.controls.batch_fee.errors.pattern">Batch Fees is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Monthly Fees</label>
+                           <input type="number" class="form-control" placeholder="Monthly Fees"  name="monthly_fee" formControlName="monthly_fee" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.monthly_fee.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.monthly_fee.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.monthly_fee.errors.required">Monthly Fees is required</div>
+                              <div *ngIf="createMerchantForm.controls.monthly_fee.errors.pattern">Monthly Fees is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Chargeback Fee</label>
+                           <input type="text" class="form-control" placeholder="Chargeback Fee"  name="chargeback_fee" formControlName="chargeback_fee" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.chargeback_fee.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.chargeback_fee.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.chargeback_fee.errors.required">Chargeback Fee is required</div>
+                              <div *ngIf="createMerchantForm.controls.chargeback_fee.errors.pattern">Chargeback Fee is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Refund Processing Fees</label>
+                           <input type="text" class="form-control" placeholder="Refund Processing Fees" formControlName="refund_processing_fee"  name="refund_processing_fee" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.refund_processing_fee.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.refund_processing_fee.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.refund_processing_fee.errors.required">Refund Processing Fees is required</div>
+                              <div *ngIf="createMerchantForm.controls.refund_processing_fee.errors.pattern">Refund Processing Fees is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Reserve Percentage</label>
+                           <input type="number" class="form-control" placeholder="Reserve Percentage"  name="reserve_percentage" formControlName="reserve_percentage" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.reserve_percentage.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.reserve_percentage.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.reserve_percentage.errors.required">Reserve Percentage is required</div>
+                              <div *ngIf="createMerchantForm.controls.reserve_percentage.errors.pattern">Reserve Percentage is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Reserve Term - Rolling</label>
+                           <input type="text" class="form-control" placeholder="Reserve Term - Rolling"  name="reserve_term_rolling" formControlName="reserve_term_rolling" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.reserve_term_rolling.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.reserve_term_rolling.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.reserve_term_rolling.errors.required">Reserve Term - Rolling is required</div>
+                              <div *ngIf="createMerchantForm.controls.reserve_term_rolling.errors.pattern">Reserve Term - Rolling is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Reserve Term - Days</label>
+                           <input type="text" class="form-control" placeholder="Reserve Term - Days" formControlName="reserve_term_days"  name="reserve_term_days" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.reserve_term_days.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.reserve_term_days.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.reserve_term_days.errors.required">Reserve Term - Days is required</div>
+                              <div *ngIf="createMerchantForm.controls.reserve_term_days.errors.pattern">Reserve Term - Days is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="form-row py-1">
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Mobile</label>
+                           <input type="number" class="form-control" placeholder="Mobile" formControlName="mobile"  name="mobile" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.mobile.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.mobile.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.mobile.errors.required">Mobile is required</div>
+                              <div *ngIf="createMerchantForm.controls.mobile.errors.min">Mobile is invalid</div>
+                              <div *ngIf="createMerchantForm.controls.mobile.errors.pattern">Mobile is invalid</div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required">
+                           <label class="d-block control-label">Email</label>
+                           <input type="email" class="form-control" placeholder="Email"  name="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && createMerchantForm.controls.email.errors }">
+                           <div *ngIf="submitted && createMerchantForm.controls.email.errors" class="invalid-feedback">
+                              <div *ngIf="createMerchantForm.controls.email.errors.required">Email is required</div>
+                              <div *ngIf="createMerchantForm.controls.email.errors.pattern">Email is invalid</div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <div class="form-row py-1" *ngIf="otpSent === true">
+                        <div class="col-4 ">
+                           <button class="btn wms_btn_link mx-2 float-left" type="button" (click)="resendOtp()">Resend OTP</button>
+                        </div>
+                     </div>
+                     
+                     <div class="form-row py-1">
+                        <div class="form-group">
+                           <button class="btn wms_btn_primary mx-2" type="submit" >Save</button>
+                           <button class="btn wms_btn_secondary" [routerLink]="['/merchants']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="tripdrive_container shadow">
+    <div class="tripdrive_listing_header">
+       <div class="row row-30 m-auto">
+          <div class="col-md-6 px-4 py-3">
+             <h3>QA Suspicious Listing</h3>
+             <p class="text-primary m-0">
+                <span class="text-secondary">QA Suspicious Listing</span>
+             </p>
+          </div>
+          <div class="col d-flex justify-content-end align-items-center h-auto px-0">
+            <div class="d-flex mx-1" *ngIf="pages && !!pages.perPage">
+               <span class="px-1 m-auto font-weight-bold">Size: </span>
+               <ng-select [items]="rowLimits"
+               bindLabel="name"
+               [clearable]="false"
+               [(ngModel)]="pages.perPage"
+               (ngModelChange)="changeRowLimits($event)"
+               >
+               </ng-select>
+            </div>
+            <div class="w-40 p-2 mx-2">
+               <form [formGroup]="searchForm">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search here..." formControlName="search" name="search">
+                     <div class="input-group-append ">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+       </div>
+    <div *ngIf="!!rows && !!pages">
+       <ngx-datatable 
+       class="material"
+       [rows]="rows"
+       [columnMode]="ColumnMode.force" 
+       [headerHeight]="50" 
+       [footerHeight]="50"
+       rowHeight="auto"
+       [externalPaging]="true"
+         [count]="pages.totalEntries"
+         [offset]="pages.currentPage"
+         [limit]="pages.perPage"
+         (page)="setPage($event)"
+       >
+       <ngx-datatable-column name="QA ID" prop="id"></ngx-datatable-column>
+       <!-- <ngx-datatable-column name="Order Date" prop="order_date">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+             {{row.order_date | date: 'medium'}}
+          </ng-template>
+       </ngx-datatable-column> -->
+       <ngx-datatable-column name="QA Agent Name" prop="qa_agent_name" [sortable]="false" [width]="170"></ngx-datatable-column>
+       <ngx-datatable-column name="First Name" prop="first_name" [sortable]="false"></ngx-datatable-column>
+       <ngx-datatable-column name="Payment Mode" prop="is_card_payment" [sortable]="false">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+             {{row.is_card_payment === true ? 'Card' : 'Bank'}}
+          </ng-template>
+       </ngx-datatable-column>
+       <ngx-datatable-column name="Total Price" prop="total_price" [sortable]="false"></ngx-datatable-column>
+       <ngx-datatable-column name="QA Order Status" prop="qa_orderstatus" [sortable]="false"></ngx-datatable-column>
+       <ngx-datatable-column name="Actions" prop="product_id" [width]="240" [sortable]="false">
+       <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <!-- {{value}} {{row}} -->
+          <span class="mx-1 "></span>
+          <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="viewOrder(row)" data-toggle="tooltip" data-placement="bottom" title="View Order"><i class="fa fa-eye"></i></button>
+          <button class="btn btn-sm btn-light mr-1 btn-icon" *ngIf="localUserRole === userRole.qa" (click)="openChangeStatus(row)" data-toggle="tooltip" data-placement="bottom" title="Change Status" data-toggle="modal" data-target="#changeStatusModal"><i class="fa fa-bolt"></i></button>
+          <!-- <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="editOrder(row)" data-toggle="tooltip" data-placement="bottom" title="Edit  Order" *ngIf="row.status.id === 1"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="downloadInvoice(row)" data-toggle="tooltip" data-placement="bottom" title="Download Invoice" *ngIf="row.status.id === 2"><i class="fa fa-download"></i></button>
+          <button class="btn btn-sm btn-light mr-1 btn-icon" (click)="printInvoice(row)" data-toggle="tooltip" data-placement="bottom" title="Print Invoice" *ngIf="row.status.id === 2"><i class="fa fa-print"></i></button> -->
+       </ng-template>
+       </ngx-datatable-column>
+       <ngx-datatable-footer *ngIf="!!pages.totalEntries">
+        <ng-template
+           ngx-datatable-footer-template
+           let-rowCount="rowCount"
+           let-pageSize="pageSize"
+           let-count="totalEntries"
+           let-selectedCount="selectedCount"
+           let-curPage="curPage"
+           let-offset="offset"
+           >
+           <div class="w-25" style="padding: 5px 10px">
+              <div> Showing {{((curPage - 1) * pageSize) + 1 }} - {{pageSize > rowCount ? rowCount : ((pageSize * curPage) > rowCount ? rowCount : pageSize * curPage)}} products of {{rowCount}} products </div>
+           </div>
+           <datatable-pager
+           [pagerLeftArrowIcon]="'datatable-icon-left'"
+           [pagerRightArrowIcon]="'datatable-icon-right'"
+           [pagerPreviousIcon]="'datatable-icon-prev'"
+           [pagerNextIcon]="'datatable-icon-skip'"
+           [page]="curPage"
+           [size]="pageSize"
+           [count]="rowCount"
+           [hidden]="!((rowCount / pageSize) > 1)"
+           (change)="setPage($event)">
+           </datatable-pager>
+        </ng-template>
+     </ngx-datatable-footer>
+       </ngx-datatable>
+    </div>
+    </div>
+ </div>
+ <div class="modal bd-example-modal-lg" 
+ id="changeStatusModal" 
+ data-backdrop="static" 
+ tabindex="-1" 
+ role="dialog" 
+ aria-labelledby="staticBackdropLabel" 
+ aria-hidden="true">
+ <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+       <form [formGroup]="detailsStatusForm"  #orderDetails="ngForm" (ngSubmit)="changeStatus(orderDetails)">
+       <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropLabel">Change Status of order</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body insowa_inventory_form">
+          <div class="form-row my-2">
+             <div class="col-6 pr-1" >
+                <div class="form-group required m-0">
+                   <label class="control-label">Order Status</label>
+                   <ng-select [items]="statusList"
+                   [hideSelected]="true"
+                   bindLabel="name"
+                   bindValue="id"
+                   name="status"
+                   formControlName="status"
+                   [multiple] ="false"
+                   class="custom"
+                   placeholder="Select Status"
+                   >
+                   </ng-select> 
+                </div>
+                <div class="d-flex justify-content-end py-1" >
+                   <span class="text-danger" *ngIf="checkStatusFormValidation !== undefined && checkStatusFormValidation !== null && checkStatusFormValidation === true && detailsStatusForm.get('status').hasError('required')">Please fill out this field.</span> 
+                </div>
+             </div>
+             <div class="col-6">
+                <label class="control-label">Reason</label>
+                <input type="text" class="form-control" placeholder="Reason" name="reason" formControlName="reason">
+             </div>
+          </div>
+       </div>
+       <div class="modal-footer">
+          <button type="submit" class="btn wms_btn_primary">Change Status</button>
+          <button type="button" class="btn wms_btn_secondary" data-dismiss="modal" #closeChangeStatusModal>Close</button>
+       </div>
+       </form>
+    </div>
+ </div>
+</div>

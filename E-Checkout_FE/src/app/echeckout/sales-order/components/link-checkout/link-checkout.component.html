@@ -1,0 +1,95 @@
+<div class="tripdrive_container shadow">
+   <div class="tripdrive_listing_header">
+      <div class="card">
+         <div class="card-header">
+            <div class="row row-30 m-auto">
+               <h5 class="m-0 text-capitalize">Checkout Using Link</h5>
+            </div>
+         </div>
+         <div class="card-body wms_inventory_form">
+            <div class="row">
+               <div class="col-4" *ngIf="!!customerList && customerList.length !== 0">
+                  <div class="form-group">
+                     <Label>Customer</Label>
+                     <ng-select [items]="customerList"
+                     [addTag]="addTagFn"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     [clearable] = "false"
+                     placeholder="Select Customer"
+                     addTagText="Add Customer With Mobile Number: "
+                     [(ngModel)]="staticObj.customerSelect"
+                     (ngModelChange)="onCustormerSelect(staticObj.customerSelect)"
+                     >
+                     </ng-select>
+                  </div>
+               </div>
+               <div class="col-4" *ngIf="!!customerList && customerList.length === 0">
+                  <div class="form-group">
+                     <Label>Customer</Label>
+                     <ng-select [items]="customerList"
+                     [addTag]="addTagFn"
+                     [hideSelected]="true"
+                     bindLabel="name"
+                     placeholder="Select Customer"
+                     addTagText="Add Customer With Mobile Number: "
+                     [(ngModel)]="staticObj.customerSelect"
+                     (ngModelChange)="onCustormerSelect(staticObj.customerSelect)"
+                     >
+                     </ng-select>
+                  </div>
+               </div>
+            </div>
+           <div class="row">
+               <div class="col-12" *ngIf="!!LinkCheckoutForm">
+                  <form class="form-signin" [formGroup]="LinkCheckoutForm" #checkoutBackDetails="ngForm"  (ngSubmit)="saveDetails(checkoutBackDetails)">
+                  <div>
+                     <div classs="">
+                        <h4>Product Details</h4>
+                     </div>
+                     <div class="form-row py-1">
+                        <div class="col-4" *ngIf="!!productList && productList.length !== 0">
+                           <div class="form-group required" >
+                              <Label class="d-block control-label">Product</Label>
+                              <ng-select [items]="productList"
+                              [hideSelected]="true"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeHolder="Select Product"
+                              name="product_id"
+                              formControlName="product_id"
+                              >
+                              </ng-select>
+                              <div class="d-flex justify-content-end mb-1 pb-1">
+                                 <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && LinkCheckoutForm.get('product_id').hasError('required')">Please fill out this field.</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group required" >
+                           <label class="d-block control-label">Quantity</label>
+                           <input type="text" class="form-control" placeholder="Quantity" name="quantity"  formControlName="quantity" >
+                           <div class="d-flex justify-content-end mb-1 pb-1">
+                              <span class="text-danger error-message" *ngIf="checkOrderFormValidation !== undefined && checkOrderFormValidation !== null && checkOrderFormValidation === true && LinkCheckoutForm.get('quantity').hasError('required')">Please fill out this field.</span>
+                              <span class="text-danger error-message" *ngIf="LinkCheckoutForm.get('quantity').hasError('pattern') && checkOrderFormValidation === true">Invalid quantity</span>
+                              <span class="text-danger error-message" *ngIf="LinkCheckoutForm.get('quantity').hasError('minlength') && checkOrderFormValidation === true">Quantity cannot be zero or lesser</span>
+                           </div>
+                        </div>
+                        <div class="col-4 form-group" *ngIf="!!completeOrderData && !!completeOrderData.total_price">
+                           <label class="d-block control-label">Total Price</label>
+                           <input type="text" class="form-control" placeholder="Total Price" name="total_price" value="{{completeOrderData.total_price}}" disabled>
+                        </div>
+                     </div>
+                     <button class="btn wms_btn_primary mr-2" type="button" (click)="updateQuantity(completeOrderData)">Update Bill</button>
+                  </div>
+                  <hr>
+                  <div class="form-group text-right">
+                     <button class="btn wms_btn_primary mx-2" type="submit">{{ linkcheckoutMethod ? "Send Link" : "Manual Input" }}</button>
+                     <button class="btn wms_btn_secondary" [routerLink]="['/sales-orders']" [queryParams]="{ perPage: 50, currentPage: 1}">Cancel</button>
+                  </div>
+                  </form>
+               </div>
+            </div> 
+         </div>
+      </div>
+   </div>
+</div>
